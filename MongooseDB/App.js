@@ -1,12 +1,12 @@
 "use strict";
 exports.__esModule = true;
+exports.App = void 0;
 var express = require("express");
-var logger = require("morgan");
 var bodyParser = require("body-parser");
-//var MongoClient = require('mongodb').MongoClient;
-//var Q = require('q');
 var ListModel_1 = require("./model/ListModel");
 var TaskModel_1 = require("./model/TaskModel");
+var crypto = require("crypto");
+var TileModel_1 = require("./model/TileModel");
 // Creates and configures an ExpressJS web server.
 var App = /** @class */ (function () {
     //Run configuration methods on the Express instance.
@@ -14,13 +14,12 @@ var App = /** @class */ (function () {
         this.expressApp = express();
         this.middleware();
         this.routes();
-        this.idGenerator = 100;
         this.Lists = new ListModel_1.ListModel();
         this.Tasks = new TaskModel_1.TaskModel();
+        this.Tiles = new TileModel_1.TileModel();
     }
     // Configure Express middleware.
     App.prototype.middleware = function () {
-        this.expressApp.use(logger('dev'));
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
     };
@@ -28,22 +27,50 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
+        router.get('/app/tile', function (req, res) {
+            if (req.url.includes('?')) {
+                var xCor = parseInt(req.query.x);
+                var yCor = parseInt(req.query.y);
+                console.log('Query single tile with id: ' + xCor + yCor);
+                _this.Tiles.retrieveTileById(res, { $and: [{ x: xCor }, { y: yCor }] });
+            }
+            else {
+                res.status(400);
+                res.send('Please provide tile coordinates (x, y)');
+            }
+        });
+        router.get('/app/tile/:estateId', function (req, res) {
+            var estateId = parseInt(req.params.estateId);
+            console.log('Query for all tiles in estate ' + estateId);
+            _this.Tiles.retrieveAllTilesInEstate(res, { estateId: estateId });
+        });
         router.get('/app/list/:listId/count', function (req, res) {
             var id = req.params.listId;
             console.log('Query single list with id: ' + id);
             _this.Tasks.retrieveTasksCount(res, { listId: id });
         });
         router.post('/app/list/', function (req, res) {
+            var id = crypto.randomBytes(16).toString("hex");
             console.log(req.body);
             var jsonObj = req.body;
-            jsonObj.listId = _this.idGenerator;
+            jsonObj.listId = id;
             _this.Lists.model.create([jsonObj], function (err) {
                 if (err) {
                     console.log('object creation failed');
                 }
             });
-            res.send(_this.idGenerator.toString());
-            _this.idGenerator++;
+            res.send('{"id":"' + id + '"}');
+        });
+        router.post('/app/list2/', function (req, res) {
+            var id = crypto.randomBytes(16).toString("hex");
+            console.log(req.body);
+            var jsonObj = req.body;
+            jsonObj.listId = id;
+            var doc = new _this.Lists.model(jsonObj);
+            doc.save(function (err) {
+                console.log('object creation failed');
+            });
+            res.send('{"id":"' + id + '"}');
         });
         router.get('/app/list/:listId', function (req, res) {
             var id = req.params.listId;
@@ -53,6 +80,10 @@ var App = /** @class */ (function () {
         router.get('/app/list/', function (req, res) {
             console.log('Query All list');
             _this.Lists.retrieveAllLists(res);
+        });
+        router.get('/app/listcount', function (req, res) {
+            console.log('Query the number of list elements in db');
+            _this.Lists.retrieveListCount(res);
         });
         this.expressApp.use('/', router);
         this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));

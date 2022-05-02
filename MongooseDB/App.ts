@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser';
 import {ListModel} from './model/ListModel';
 import {TaskModel} from './model/TaskModel';
 import * as crypto from 'crypto';
+import { TileModel } from './model/TileModel';
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -11,6 +12,7 @@ class App {
   public expressApp: express.Application;
   public Lists:ListModel;
   public Tasks:TaskModel;
+  public Tiles:TileModel;
 
   //Run configuration methods on the Express instance.
   constructor() {
@@ -19,6 +21,7 @@ class App {
     this.routes();
     this.Lists = new ListModel();
     this.Tasks = new TaskModel();
+    this.Tiles = new TileModel();
   }
 
   // Configure Express middleware.
@@ -30,6 +33,26 @@ class App {
   // Configure API endpoints.
   private routes(): void {
     let router = express.Router();
+
+    router.get('/app/tile', (req, res) => {
+      if (req.url.includes('?')) {
+        var xCor = parseInt(req.query.x);
+        var yCor = parseInt(req.query.y);
+        console.log('Query single tile with id: ' + xCor + yCor);
+        this.Tiles.retrieveTileById(res, {$and:[{x: xCor}, {y: yCor}]});
+      } else {
+        res.status(400);
+        res.send('Please provide tile coordinates (x, y)');
+      }
+    });
+
+    router.get('/app/tile/:estateId', (req, res) => {
+      var estateId = parseInt(req.params.estateId);
+      console.log('Query for all tiles in estate ' + estateId);
+      this.Tiles.retrieveAllTilesInEstate(res, {estateId: estateId});
+    });
+
+
     router.get('/app/list/:listId/count', (req, res) => {
         var id = req.params.listId;
         console.log('Query single list with id: ' + id);
