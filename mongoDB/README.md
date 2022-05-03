@@ -16,10 +16,10 @@ To execute the server db and then the node server with the following commands:
 0. md db
 
 //Starts the DB server on port 3000
-1. start.metaDetector.cmd
+1. start start.metaDetector.cmd
 
 //populate the DB server with sample data
-2. startdbClient.metaDetector.cmd
+2. start startdbClient.metaDetector2.cmd
 >load ('createTransportation.mongo2.js');
 >exit
 

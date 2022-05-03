@@ -1,16 +1,16 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.TileModel = void 0;
-var Mongoose = require("mongoose");
-var DataAccess_1 = require("../DataAccess");
-var mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
-var mongooseObj = DataAccess_1.DataAccess.mongooseInstance;
-var TileModel = /** @class */ (function () {
-    function TileModel() {
+const Mongoose = require("mongoose");
+const DataAccess_1 = require("../DataAccess");
+let mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
+let mongooseObj = DataAccess_1.DataAccess.mongooseInstance;
+class TileModel {
+    constructor() {
         this.createSchema();
         this.createModel();
     }
-    TileModel.prototype.createSchema = function () {
+    createSchema() {
         this.schema = new Mongoose.Schema({
             tileId: String,
             x: Number,
@@ -24,24 +24,23 @@ var TileModel = /** @class */ (function () {
             owner: String,
             tokenId: String
         }, { collection: 'tiles' });
-    };
-    TileModel.prototype.createModel = function () {
+    }
+    createModel() {
         this.model = mongooseConnection.model("Tile", this.schema);
-    };
-    TileModel.prototype.retrieveTileById = function (response, filter) {
+    }
+    retrieveTileById(response, filter) {
         var query = this.model.findOne(filter);
-        query.exec(function (err, tile) {
+        query.exec((err, tile) => {
             console.log(tile);
             response.json(tile);
         });
-    };
-    TileModel.prototype.retrieveAllTilesInEstate = function (response, filter) {
+    }
+    retrieveAllTilesInEstate(response, filter) {
         var query = this.model.find(filter);
-        query.exec(function (err, tileList) {
+        query.exec((err, tileList) => {
             console.log(tileList);
             response.json(tileList);
         });
-    };
-    return TileModel;
-}());
+    }
+}
 exports.TileModel = TileModel;
