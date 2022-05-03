@@ -1,11 +1,11 @@
 import Mongoose = require("mongoose");
 import {DataAccess} from '../DataAccess';
-import {ITileModel} from '../interfaces/ITileModel';
+import {ITweetModel} from '../interfaces/ITweetModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
 
-class TileModel {
+class TweetModel {
     public schema:any;
     public model:any;
 
@@ -17,26 +17,19 @@ class TileModel {
     public createSchema(): void {
         this.schema = new Mongoose.Schema(
             {
-                tileId: String,
-                x: Number,
-                y: Number,
-                updatedAt: Number,
-                type: String,
-                top: Boolean,
-                left: Boolean,
-                topLeft: Boolean,
-                estateId: Number,
-                owner: String, 
-                tokenId: String 
-            }, {collection: 'tiles'}
+                tweetId: String,
+                userID: String,
+                tweetDescription: String,
+                tweetDate: Date
+            }, {collection: 'tweets'}
         );
     }
 
     public createModel(): void {
-        this.model = mongooseConnection.model<ITileModel>("Tile", this.schema);
+        this.model = mongooseConnection.model<ITweetModel>("Tweet", this.schema);
     }
 
-    public retrieveTileById(response:any, filter:Object): any {
+    public retrieveTweetById(response:any, filter:Object): any {
         var query = this.model.findOne(filter);
         query.exec( (err, tile) => {
             console.log(tile);
@@ -44,7 +37,7 @@ class TileModel {
         });
     }
 
-    public retrieveAllTilesInEstate(response:any, filter:Object): any {
+    public retrieveAllTweets(response:any, filter:Object): any {
         var query = this.model.find(filter);
         query.exec( (err, tileList) => {
             console.log(tileList);
@@ -52,4 +45,4 @@ class TileModel {
         });
     }
 }
-export {TileModel};
+export {TweetModel};
