@@ -20,26 +20,13 @@
 		  <nav class="navbar navbar-default">
 			<div class="container-fluid">
 			  <div class="navbar-header">
-				<a class="navbar-brand" href="javascript:initXHR('home', null)">To Do</a>
+				<a class="navbar-brand" href="javascript:initXHR('home', null)">MetaDetector</a>
 			  </div>
 			  <div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-				  <li><a href="#">Home</a></li>
-				  <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Placeholder<span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-					  <li><a href="#">Placeholder</a></li>
-					  <li><a href="javascript:initXHR('lists', null)">Placeholder</a></li>
-					  <li><a href="#">Placeholder</a></li>
-					</ul>
-				  </li>
-				  <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Placeholder<span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-					  <li><a href="#">Placeholder</a></li>
-					  <li><a href="#">Placeholder</a></li>
-					</ul>
-				  </li>
+				  <li><a href="#">About</a></li>
+				  <li><a href="#">Services</a></li>
+				  <li><a href="#">Market-Tracker</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 				  <li><a href="#">Login</a></li>
@@ -50,17 +37,75 @@
 		  
 		<div id="home">
 		  <!-- Main component for a primary marketing message or call to action -->
-		  <div class="jumbotron">
-			<h1>To Do List</h1>
-			<p>Keep track of all of things you need to do by creating lists and sharing items with friends.</p>
+		  <div class="Twitter-feed">
+			<h1>Meta-Twitter Feed</h1>
+			<p>Real Estate Posts</p>
 			<p>
-			  <a class="btn btn-lg btn-primary" href="javascript:initXHR('lists', null)" role="button">View</a>
+				<div class="row">
+					<div class="col-xs-3">
+						<div class="well">
+							<h3>Tweet 1</h3>
+						</div>
+					</div>
+					<div class="col-xs-3">
+						<div class="well">
+							<h3>Tweet 2</h3>
+						</div>
+					</div>
+					<div class="col-xs-3">
+						<div class="well">
+							<h3>Tweet 3</h3>
+						</div>
+					</div>
+					<div class="col-xs-3">
+						<div class="well">
+							<h3>Tweet 4</h3>
+						</div>
+					</div>
+				</div>
 			</p>
 		  </div>
 		</div>
 		
 		<div id="lists" style="display:none;">
 		</div>
+
+		<div id="home">
+		<div class="popular-metaverses">
+		<h1>Popular Metaverses</h1>
+		<p>Top purchases</p>
+		<table class="table table-striped">
+			<thead>
+			  <tr>
+				<th scope="col">#</th>
+				<th scope="col">Metaverse</th>
+				<th scope="col">Sales in last day</th>
+				<th scope="col">Sales in last 7 days</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+				<th scope="row">1</th>
+				<td>The Sandbox</td>
+				<td>$19,61,50,467.38</td>
+				<td>$3,44,44,51,390.33</td>
+			  </tr>
+			  <tr>
+				<th scope="row">2</th>
+				<td>Decentraland</td>
+				<td>3,76,99,083.15</td>
+				<td>44,95,21,042.33</td>
+			  </tr>
+			  <tr>
+				<th scope="row">3</th>
+				<td>Somnium Space</td>
+				<td>2,26,05,718.90</td>
+				<td>37,55,54,107.58</td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+	</div>
 
 
 		<div class="container-fluid">
@@ -107,39 +152,15 @@
 			</div>
 		</div>
 
-		<div id="gList" style="display:none;">
-			<div class="panel panel-default">
-			  <!-- Default panel contents -->
-			  <div class="panel-heading"> 
-				  <h3>List</h3>
-				  <div>
-					<a href="#"><span class="glyphicon glyphicon-edit"></span></a>
-					<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-					<a href="#"><span class="glyphicon glyphicon-ok"></span></a>
-				  </div>
-			  </div>
-				<!-- Table -->
-				<table class="table" style="font-size:10pt;">
-					<thead>
-						<tr>
-							<th>Items</th>
-							<th width="5%">Shared</th>
-							<th width="5%">Status</th>
-						</tr>
-					</thead>
-					<tbody id='tasks'>
-					</tbody>
-				</table>
-			</div>
 		</div>
 		
-		</div> <!-- /container -->
+ <!-- /container -->
 	
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src="/script.js"></script>
-	</body>
+</body>
 </html>
