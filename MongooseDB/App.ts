@@ -1,7 +1,5 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import {ListModel} from './model/ListModel';
-import {TaskModel} from './model/TaskModel';
 import * as crypto from 'crypto';
 import { TileModel } from './model/TileModel';
 
@@ -10,8 +8,6 @@ class App {
 
   // ref to Express instance
   public expressApp: express.Application;
-  public Lists:ListModel;
-  public Tasks:TaskModel;
   public Tiles:TileModel;
 
   //Run configuration methods on the Express instance.
@@ -19,8 +15,6 @@ class App {
     this.expressApp = express();
     this.middleware();
     this.routes();
-    this.Lists = new ListModel();
-    this.Tasks = new TaskModel();
     this.Tiles = new TileModel();
   }
 
@@ -50,54 +44,6 @@ class App {
       var estateId = parseInt(req.params.estateId);
       console.log('Query for all tiles in estate ' + estateId);
       this.Tiles.retrieveAllTilesInEstate(res, {estateId: estateId});
-    });
-
-
-    router.get('/app/list/:listId/count', (req, res) => {
-        var id = req.params.listId;
-        console.log('Query single list with id: ' + id);
-        this.Tasks.retrieveTasksCount(res, {listId: id});
-    });
-
-    router.post('/app/list/', (req, res) => {
-      const id = crypto.randomBytes(16).toString("hex");
-      console.log(req.body);
-        var jsonObj = req.body;
-        jsonObj.listId = id;
-        this.Lists.model.create([jsonObj], (err) => {
-            if (err) {
-                console.log('object creation failed');
-            }
-        });
-        res.send('{"id":"' + id + '"}');
-    });
-
-    router.post('/app/list2/', (req, res) => {
-      const id = crypto.randomBytes(16).toString("hex");
-      console.log(req.body);
-        var jsonObj = req.body;
-        jsonObj.listId = id;
-        let doc = new this.Lists.model(jsonObj);
-        doc.save((err) => {
-           console.log('object creation failed');
-        });
-        res.send('{"id":"' + id + '"}');
-    });
-
-    router.get('/app/list/:listId', (req, res) => {
-        var id = req.params.listId;
-        console.log('Query single list with id: ' + id);
-        this.Tasks.retrieveTasksDetails(res, {listId: id});
-    });
-
-    router.get('/app/list/', (req, res) => {
-        console.log('Query All list');
-        this.Lists.retrieveAllLists(res);
-    });
-
-    router.get('/app/listcount', (req, res) => {
-      console.log('Query the number of list elements in db');
-      this.Lists.retrieveListCount(res);
     });
 
     this.expressApp.use('/', router);

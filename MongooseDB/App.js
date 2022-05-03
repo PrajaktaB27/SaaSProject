@@ -3,8 +3,6 @@ exports.__esModule = true;
 exports.App = void 0;
 var express = require("express");
 var bodyParser = require("body-parser");
-var ListModel_1 = require("./model/ListModel");
-var TaskModel_1 = require("./model/TaskModel");
 var crypto = require("crypto");
 var TileModel_1 = require("./model/TileModel");
 // Creates and configures an ExpressJS web server.
@@ -14,8 +12,6 @@ var App = /** @class */ (function () {
         this.expressApp = express();
         this.middleware();
         this.routes();
-        this.Lists = new ListModel_1.ListModel();
-        this.Tasks = new TaskModel_1.TaskModel();
         this.Tiles = new TileModel_1.TileModel();
     }
     // Configure Express middleware.
