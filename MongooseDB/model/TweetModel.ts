@@ -17,7 +17,6 @@ class TweetModel {
     public createSchema(): void {
         this.schema = new Mongoose.Schema(
             {
-                id: String,
                 tweetID: String,
                 tweetDescription: String,
                 tweetDate: Date
