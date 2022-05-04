@@ -42,31 +42,27 @@ var App = /** @class */ (function () {
         router.post('/app/updateTiles', function (req, res, next) {
             //Do a get call to metaverse
             var request = require('request');
+            var model = _this.Tiles.model; //alias to be used in the callback, scope issue
             request('https://api.decentraland.org/v2/tiles', function (err, response, body) {
                 if (!err && response.statusCode == 200) {
-                    //console.log(body)
-                    var data = JSON.parse(body);
-                    var counter = 0;
-                    for (var item in data) {
-                        console.log(data[item].id);
+                    var result = JSON.parse(body).data;
+                    for (var item in result) {
+                        //console.log(JSON.stringify(result[item]));
+                        //Put each item in the DB
+                        model.create([result[item]], function (err) {
+                            if (err) {
+                                console.log('Tile creation failed!');
+                            }
+                        });
+                        //Only storing 1 item for now, but eventually we would want to do a real update on every single item
                         break;
                     }
-                    //Take the first item only
-                    /* this.Tiles.model.create( [data[0]], (err) => {
-                      if (err){
-                        console.log('Tile creation failed!');
-                      }
-                      if(!err){
-                        console.log(data[0]);
-                      }
-                    }); */
-                    //res.send('{"id":' + data[0].tileId + "}")
+                }
+                else {
+                    console.log('Failed to fetch data from external server.');
                 }
             });
-            //var sum = query.var1 + query.var2;
-            //var msg = 'addition of ' + value1 + ' plus ' + value2 + ' equals ' + sum;
-            //console.log(msg);
-            //res.send(msg);
+            res.send('Update completed');
         });
         this.expressApp.use('/', router);
         this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
