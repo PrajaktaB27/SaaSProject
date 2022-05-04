@@ -3,6 +3,7 @@ db = db.getSiblingDB('metaverseData')
 db.createCollection('tiles')
 tilesCollection = db.getCollection("tiles")
 tilesCollection.remove({})
+
 tilesCollection.insert(
 	{
 		tileId: "-150,150",
@@ -53,7 +54,7 @@ tilesCollection.insert(
 
 tilesCollection.insert(
 	{
-		id: "-150,79",
+		tileId: "-150,79",
                 x: -150,
                 y: 79,
                 updatedAt: 1543335274,
@@ -69,7 +70,7 @@ tilesCollection.insert(
 
 tilesCollection.insert(
 	{
-                id: "-150,78",
+                tileId: "-150,78",
                 x: -150,
                 y: 78,
                 updatedAt: 1543335274,
@@ -85,7 +86,7 @@ tilesCollection.insert(
 
 tilesCollection.insert(
         {
-                id: "-91,150",
+                tileId: "-91,150",
                 x: -91,
                 y: 150,
                 updatedAt: 1582548358,
@@ -101,7 +102,7 @@ tilesCollection.insert(
 
 tilesCollection.insert(
         {
-                id: "-91,149",
+                tileId: "-91,149",
                 x: -91,
                 y: 149,
                 updatedAt: 1582548358,
@@ -117,7 +118,7 @@ tilesCollection.insert(
 
 tilesCollection.insert(
         {
-                id: "-91,148",
+                tileId: "-91,148",
                 x: -91,
                 y: 148,
                 updatedAt: 1582548358,
@@ -133,7 +134,7 @@ tilesCollection.insert(
 
 tilesCollection.insert(
         {
-                id: "-91,147",
+                tileId: "-91,147",
                 x: -91,
                 y: 147,
                 updatedAt: 1582548358,
@@ -149,7 +150,7 @@ tilesCollection.insert(
 
 tilesCollection.insert(
         {
-                id: "-91,146",
+                tileId: "-91,146",
                 x: -91,
                 y: 146,
                 updatedAt: 1582548358,
@@ -160,5 +161,33 @@ tilesCollection.insert(
                 estateId: 1191,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 tokenId: "115792089237316195423570985008687907822304289275835163864290494731622222397586"
+        }
+)
+
+db.createCollection('tweets')
+tweetsCollection = db.getCollection("tweets")
+tweetsCollection.remove({})
+
+tweetsCollection.insert(
+        {
+                tweetID: "1234",
+                tweetDescription: "Check out my estate in Decentraland",
+                tweetDate: "2022-04-27"
+        }
+)
+
+tweetsCollection.insert(
+        {
+                tweetID: "5678",
+                tweetDescription: "Spent all my Ethereum in the #metaverse",
+                tweetDate: "2022-05-01"
+        }
+)
+
+tweetsCollection.insert(
+        {
+                tweetID: "9912",
+                tweetDescription: "My neighbors are really annoying",
+                tweetDate: "2022-04-13"
         }
 )
