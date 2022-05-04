@@ -168,8 +168,6 @@ db.createCollection('tweets')
 tweetsCollection = db.getCollection("tweets")
 tweetsCollection.remove({})
 
-var tweets = [];
-
 tweetsCollection.insertMany([
         {
                 authorID: "1146202351",
