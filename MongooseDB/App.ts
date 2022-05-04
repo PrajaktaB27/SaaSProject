@@ -46,6 +46,39 @@ class App {
       this.Tiles.retrieveAllTilesInEstate(res, {estateId: estateId});
     });
 
+    router.post('/app/updateTiles', (req, res, next) => {
+      //Do a get call to metaverse
+      const request = require('request');
+      request('https://api.decentraland.org/v2/tiles', function (err, response, body) {
+        if (!err && response.statusCode == 200) {
+        //console.log(body)
+        let data = JSON.parse(body);
+        let counter = 0;
+        for(var item in data){
+          console.log(data[item].id);
+          break;
+        }
+        
+        //Take the first item only
+        /* this.Tiles.model.create( [data[0]], (err) => {
+          if (err){
+            console.log('Tile creation failed!');
+          }
+          if(!err){
+            console.log(data[0]);
+          }
+        }); */
+        //res.send('{"id":' + data[0].tileId + "}")
+        }
+      })
+      
+      //var sum = query.var1 + query.var2;
+      //var msg = 'addition of ' + value1 + ' plus ' + value2 + ' equals ' + sum;
+  
+      //console.log(msg);
+      //res.send(msg);
+  });
+
     this.expressApp.use('/', router);
 
     this.expressApp.use('/app/json/', express.static(__dirname+'/app/json'));
