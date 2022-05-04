@@ -4,7 +4,7 @@ db.createCollection('tiles')
 tilesCollection = db.getCollection("tiles")
 tilesCollection.remove({})
 
-tilesCollection.insertMany(
+tilesCollection.insertMany([
         {
                 tileId: "-150,150",
                 x: -150,
@@ -135,7 +135,7 @@ tilesCollection.insertMany(
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 tokenId: "115792089237316195423570985008687907822304289275835163864290494731622222397586"
         },
-)
+])
 
 db.createCollection('tweets')
 tweetsCollection = db.getCollection("tweets")
