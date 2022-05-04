@@ -12,6 +12,7 @@ var TweetModel = /** @class */ (function () {
     }
     TweetModel.prototype.createSchema = function () {
         this.schema = new Mongoose.Schema({
+            authorID: String,
             tweetID: String,
             tweetDescription: String,
             tweetDate: Date
