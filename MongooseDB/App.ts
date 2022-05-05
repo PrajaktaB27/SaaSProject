@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as crypto from 'crypto';
 import { TileModel } from './model/TileModel';
+import { TweetModel } from './model/TweetModel';
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -9,6 +10,7 @@ class App {
   // ref to Express instance
   public expressApp: express.Application;
   public Tiles:TileModel;
+  public Tweets:TweetModel;
 
   //Run configuration methods on the Express instance.
   constructor() {
@@ -44,6 +46,11 @@ class App {
       var estateId = parseInt(req.params.estateId);
       console.log('Query for all tiles in estate ' + estateId);
       this.Tiles.retrieveAllTilesInEstate(res, {estateId: estateId});
+    });
+    
+    router.get('/app/tweets', (req, res) => {
+      console.log('Query for all tweets');
+      this.Tweets.retrieveAllTweets(res);
     });
 
     router.post('/app/updateTiles', (req, res, next) => {

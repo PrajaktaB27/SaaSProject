@@ -31,17 +31,17 @@ class TweetModel {
 
     public retrieveTweetById(response:any, filter:Object): any {
         var query = this.model.findOne(filter);
-        query.exec( (err, tile) => {
-            console.log(tile);
-            response.json(tile);
+        query.exec( (err, tweet) => {
+            console.log(tweet);
+            response.json(tweet);
         });
     }
 
-    public retrieveAllTweets(response:any, filter:Object): any {
-        var query = this.model.find(filter);
-        query.exec( (err, tileList) => {
-            console.log(tileList);
-            response.json(tileList);
+    public retrieveAllTweets(response:any): any {
+        var query = this.model.find();
+        query.exec( (err, tweetList) => {
+            console.log(tweetList);
+            response.json(tweetList);
         });
     }
 }
