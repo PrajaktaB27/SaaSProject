@@ -4,6 +4,7 @@ exports.App = void 0;
 var express = require("express");
 var bodyParser = require("body-parser");
 var TileModel_1 = require("./model/TileModel");
+var TweetModel_1 = require("./model/TweetModel");
 // Creates and configures an ExpressJS web server.
 var App = /** @class */ (function () {
     //Run configuration methods on the Express instance.
@@ -12,6 +13,7 @@ var App = /** @class */ (function () {
         this.middleware();
         this.routes();
         this.Tiles = new TileModel_1.TileModel();
+        this.Tweets = new TweetModel_1.TweetModel();
     }
     // Configure Express middleware.
     App.prototype.middleware = function () {
@@ -38,6 +40,10 @@ var App = /** @class */ (function () {
             var estateId = parseInt(req.params.estateId);
             console.log('Query for all tiles in estate ' + estateId);
             _this.Tiles.retrieveAllTilesInEstate(res, { estateId: estateId });
+        });
+        router.get('/app/tweets', function (req, res) {
+            console.log('Query for all tweets');
+            _this.Tweets.retrieveAllTweets(res);
         });
         router.post('/app/updateTiles', function (req, res, next) {
             //Do a get call to metaverse

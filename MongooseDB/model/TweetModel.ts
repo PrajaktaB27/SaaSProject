@@ -38,7 +38,7 @@ class TweetModel {
     }
 
     public retrieveAllTweets(response:any): any {
-        var query = this.model.find();
+        var query = this.model.find({});
         query.exec( (err, tweetList) => {
             console.log(tweetList);
             response.json(tweetList);

@@ -23,16 +23,16 @@ var TweetModel = /** @class */ (function () {
     };
     TweetModel.prototype.retrieveTweetById = function (response, filter) {
         var query = this.model.findOne(filter);
-        query.exec(function (err, tile) {
-            console.log(tile);
-            response.json(tile);
+        query.exec(function (err, tweet) {
+            console.log(tweet);
+            response.json(tweet);
         });
     };
-    TweetModel.prototype.retrieveAllTweets = function (response, filter) {
-        var query = this.model.find(filter);
-        query.exec(function (err, tileList) {
-            console.log(tileList);
-            response.json(tileList);
+    TweetModel.prototype.retrieveAllTweets = function (response) {
+        var query = this.model.find({});
+        query.exec(function (err, tweetList) {
+            console.log(tweetList);
+            response.json(tweetList);
         });
     };
     return TweetModel;

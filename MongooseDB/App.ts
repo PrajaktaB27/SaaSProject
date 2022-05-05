@@ -18,6 +18,8 @@ class App {
     this.middleware();
     this.routes();
     this.Tiles = new TileModel();
+    this.Tweets = new TweetModel();
+
   }
 
   // Configure Express middleware.
