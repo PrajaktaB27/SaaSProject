@@ -15,6 +15,7 @@ import { DueDiligenceComponent } from './meta-home/due-diligence/due-diligence.c
 import { MetaMarketplaceComponent } from './meta-home/meta-marketplace/meta-marketplace.component';
 import { MetaverseComponent } from './meta-home/metaverse/metaverse.component';
 import { TweetComponent } from './meta-home/tweet/tweet.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { TweetComponent } from './meta-home/tweet/tweet.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
