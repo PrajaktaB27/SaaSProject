@@ -11,6 +11,7 @@ class App {
   public expressApp: express.Application;
   public Tiles:TileModel;
   public Tweets:TweetModel;
+  private static API_KEY: number = 123;
 
   //Run configuration methods on the Express instance.
   constructor() {
@@ -48,7 +49,7 @@ class App {
       if (req.url.includes('?')) {
         var xCor = parseInt(req.query.x);
         var yCor = parseInt(req.query.y);
-        console.log('Query single tile with id: ' + xCor + yCor);
+        console.log(`Query single tile with coordinates: (${xCor}, ${yCor})`);
         this.Tiles.retrieveTileById(res, {$and:[{x: xCor}, {y: yCor}]});
       } else {
         res.status(400);
@@ -56,10 +57,10 @@ class App {
       }
     });
 
-    router.get('/app/tile/:estateId', (req, res) => {
-      var estateId = parseInt(req.params.estateId);
-      console.log('Query for all tiles in estate ' + estateId);
-      this.Tiles.retrieveAllTilesInEstate(res, {estateId: estateId});
+    router.get('/app/tile/estate/:id', (req, res) => {
+      var id = parseInt(req.params.id);
+      console.log('Query for all tiles in estate ' + id);
+      this.Tiles.retrieveAllTilesInEstate(res, {estateId: id});
     });
     
     router.get('/app/tweets', (req, res) => {
@@ -67,7 +68,25 @@ class App {
       this.Tweets.retrieveAllTweets(res);
     });
 
-    router.post('/app/updateTiles', (req, res, next) => {
+    router.post('/app/tiles', (req, res, next) => {
+      // Verify API key in header before processing the request
+      if (req.headers['api-key'] == null) {
+        const message = 'Missing required authorization header: api-key';
+        console.log(message)
+        res.status(400);
+        res.send(message);
+        return;
+      }
+
+      // Verify API key is correct
+      if (parseInt(req.headers['api-key'].toString()) != App.API_KEY) {
+        const message = `Unauthorized request to ${req.url}, please check the api-key header.`;
+        console.log(message)
+        res.status(401);
+        res.send(message);
+        return;
+      }
+      
       //Do a get call to metaverse
       const request = require('request');
       

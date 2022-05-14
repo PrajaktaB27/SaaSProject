@@ -19,6 +19,7 @@ var App = /** @class */ (function () {
     App.prototype.middleware = function () {
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
+        //CORS set up to allow access from Angular
         this.expressApp.use(function (req, res, next) {
             res.setHeader("Access-Control-Allow-Origin", "*");
             res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -34,7 +35,7 @@ var App = /** @class */ (function () {
             if (req.url.includes('?')) {
                 var xCor = parseInt(req.query.x);
                 var yCor = parseInt(req.query.y);
-                console.log('Query single tile with id: ' + xCor + yCor);
+                console.log("Query single tile with coordinates: (".concat(xCor, ", ").concat(yCor, ")"));
                 _this.Tiles.retrieveTileById(res, { $and: [{ x: xCor }, { y: yCor }] });
             }
             else {
@@ -42,16 +43,32 @@ var App = /** @class */ (function () {
                 res.send('Please provide tile coordinates (x, y)');
             }
         });
-        router.get('/app/tile/:estateId', function (req, res) {
-            var estateId = parseInt(req.params.estateId);
-            console.log('Query for all tiles in estate ' + estateId);
-            _this.Tiles.retrieveAllTilesInEstate(res, { estateId: estateId });
+        router.get('/app/tile/estate/:id', function (req, res) {
+            var id = parseInt(req.params.id);
+            console.log('Query for all tiles in estate ' + id);
+            _this.Tiles.retrieveAllTilesInEstate(res, { estateId: id });
         });
         router.get('/app/tweets', function (req, res) {
             console.log('Query for all tweets');
             _this.Tweets.retrieveAllTweets(res);
         });
-        router.post('/app/updateTiles', function (req, res, next) {
+        router.post('/app/tiles', function (req, res, next) {
+            // Verify API key in header before processing the request
+            if (req.headers['api-key'] == null) {
+                var message = 'Missing required authorization header: api-key';
+                console.log(message);
+                res.status(400);
+                res.send(message);
+                return;
+            }
+            // Verify API key is correct
+            if (parseInt(req.headers['api-key'].toString()) != App.API_KEY) {
+                var message = "Unauthorized request to ".concat(req.url, ", please check the api-key header.");
+                console.log(message);
+                res.status(401);
+                res.send(message);
+                return;
+            }
             //Do a get call to metaverse
             var request = require('request');
             var model = _this.Tiles.model; //alias to be used in the callback, scope issue
@@ -81,6 +98,7 @@ var App = /** @class */ (function () {
         this.expressApp.use('/images', express.static(__dirname + '/img'));
         this.expressApp.use('/', express.static(__dirname + '/pages'));
     };
+    App.API_KEY = 123;
     return App;
 }());
 exports.App = App;
