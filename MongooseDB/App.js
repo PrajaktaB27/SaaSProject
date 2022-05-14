@@ -19,6 +19,12 @@ var App = /** @class */ (function () {
     App.prototype.middleware = function () {
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
+        this.expressApp.use(function (req, res, next) {
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+            next();
+        });
     };
     // Configure API endpoints.
     App.prototype.routes = function () {

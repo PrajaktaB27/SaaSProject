@@ -26,7 +26,19 @@ class App {
   private middleware(): void {
     this.expressApp.use(bodyParser.json());
     this.expressApp.use(bodyParser.urlencoded({ extended: false }));
+
+    //CORS set up to allow access from Angular
+    this.expressApp.use( (req, res, next) => {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Headers",
+                    "Origin, X-Requested-With, Content-Type, Accept");
+      res.setHeader("Access-Control-Allow-Methods",
+                    "GET, POST, PATCH, DELETE, OPTIONS");
+      next();
+    })
   }
+
+  
 
   // Configure API endpoints.
   private routes(): void {
@@ -89,7 +101,6 @@ class App {
     this.expressApp.use('/app/json/', express.static(__dirname+'/app/json'));
     this.expressApp.use('/images', express.static(__dirname+'/img'));
     this.expressApp.use('/', express.static(__dirname+'/pages'));
-    
   }
 
 }
