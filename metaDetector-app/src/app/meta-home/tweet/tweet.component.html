@@ -1,33 +1,15 @@
-<div id="home">
-    <!-- Main component for a primary marketing message or call to action -->
-    <div class="Twitter-feed">
-      <h1>Meta-Twitter Feed</h1>
-      <p>Real Estate Posts</p>
-      <p>
-          <div class="row">
-              <div class="col-xs-3">
-                  <div class="well">
-                      <h3>Tweet 1</h3>
-                  </div>
-              </div>
-              <div class="col-xs-3">
-                  <div class="well">
-                      <h3>Tweet 2</h3>
-                  </div>
-              </div>
-              <div class="col-xs-3">
-                  <div class="well">
-                      <h3>Tweet 3</h3>
-                  </div>
-              </div>
-              <div class="col-xs-3">
-                  <div class="well">
-                      <h3>Tweet 4</h3>
-                  </div>
-              </div>
-          </div>
+<div class="Twitter-feed">
+    <h1>Meta-Twitter Feed</h1>
+    <p>Real Estate Posts</p>
+    <div class="horizontalContainer">
+
+            <div class="col-xs-3" *ngFor="let result of results.slice(0,10)">
+                <div class="well">
+                    <span>{{result.tweetID}}</span>
+                    <p>{{result.tweetDescription}}</p>
+                </div>
+            </div>
+
     </div>
-  </div>
-  
-  <div id="lists" style="display:none;">
-  </div>
+</div>
+
