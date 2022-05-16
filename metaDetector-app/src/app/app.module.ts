@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { TestPageComponent } from './test-page/test-page.component';
 import { BuyerDdComponent } from './buyer-dd/buyer-dd.component';
 import { DecentralandListComponent } from './decentraland-list/decentraland-list.component';
@@ -38,7 +42,9 @@ import { NavbarComponent } from './navbar/navbar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
