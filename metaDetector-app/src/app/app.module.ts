@@ -16,6 +16,7 @@ import { MetaMarketplaceComponent } from './meta-home/meta-marketplace/meta-mark
 import { MetaverseComponent } from './meta-home/metaverse/metaverse.component';
 import { TweetComponent } from './meta-home/tweet/tweet.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     DueDiligenceComponent,
     MetaMarketplaceComponent,
     MetaverseComponent,
-    TweetComponent
+    TweetComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
