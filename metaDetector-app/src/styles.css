@@ -3,10 +3,17 @@ h3 {
     text-align: center;
 }
 
-.row > .col-xs-3 {
+.horizontalContainer {
+    orientation: landscape;
+    display:flex;
+    max-height: 310px;
+    overflow-x: scroll;
+}
+
+.col-xs-3 {
     display:flex;
     flex: 0 0 25%;
-    max-width: 25%
+    max-width: 25%;
 }
 
 .well {
@@ -15,6 +22,7 @@ h3 {
 }
 
 .popular-metaverses{
-    
     max-width: 80%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
