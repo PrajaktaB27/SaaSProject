@@ -1,0 +1,5 @@
+.tweet-cards-wrappers{
+    display: inline-flex;
+    justify-content: center;
+    background-image: url('https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2012/06/06/47707665-twitter-bird-white-on-blue.1910x1000.jpg');
+}

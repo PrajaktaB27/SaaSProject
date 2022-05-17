@@ -1,15 +1,27 @@
-<div class="Twitter-feed">
-    <h1>Meta-Twitter Feed</h1>
-    <p>Real Estate Posts</p>
-    <div class="horizontalContainer">
-
-            <div class="col-xs-3" *ngFor="let result of results.slice(0,10)">
-                <div class="well">
-                    <span>{{result.tweetID}}</span>
-                    <p>{{result.tweetDescription}}</p>
+<div class="container-fluid">
+    <h1>Metaverses</h1>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let index of counter(3); let isFirst = first" [ngClass]="{active: isFirst}">
+                <div class="tweet-cards-wrappers">
+                    <div class="card" *ngFor="let item of counter(3)">  
+                        <div class="card-body">
+                            <h4 class="card-title">{{getTweet().tweetID}}</h4>
+                            <p class="card-text">{{getTweet().tweetDescription}}</p>
+                        </div>
+                    </div>
                 </div>
+                    
             </div>
+        </div>
 
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
 </div>
-
