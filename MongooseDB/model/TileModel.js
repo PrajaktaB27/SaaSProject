@@ -42,6 +42,13 @@ var TileModel = /** @class */ (function () {
             response.json(tileList);
         });
     };
+    TileModel.prototype.retrieveTilesOfSpecificType = function (response, filter) {
+        var query = this.model.find(filter);
+        query.exec(function (err, tileList) {
+            console.log(tileList);
+            response.json(tileList);
+        });
+    };
     return TileModel;
 }());
 exports.TileModel = TileModel;

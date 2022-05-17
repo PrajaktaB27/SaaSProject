@@ -51,5 +51,13 @@ class TileModel {
             response.json(tileList);
         });
     }
+
+    public retrieveTilesOfSpecificType(response:any, filter:Object): any {
+        var query = this.model.find(filter);
+        query.exec( (err, tileList) => {
+            console.log(tileList);
+            response.json(tileList);
+        });
+    }
 }
 export {TileModel};
