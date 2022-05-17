@@ -1,82 +1,38 @@
 <div class="container-fluid">
     <h1>Sold or Owned</h1>
+    
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
             <div class="carousel-item active">
+
                 <div class="cards-wrapper">
-                    <div class="card">
+
+                    <div class="card" *ngFor="let tile of listOfTileLists[0]">
                         <img src="./../assets/images/placeholder.png" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h3 class="card-title">EstateID</h3>
+                            <h3 class="card-title">{{tile.tileId}}</h3>
                             <p class="card-text">Information about estate</p>
                         </div>
                     </div>
-                    <div class="card d-none d-md-block">
+
+                </div>
+
+            </div>
+            
+            <div class="carousel-item" *ngFor="let tileList of listOfTileLists.slice(1, listOfTileLists.length)">
+                <div class="cards-wrapper">
+                    <div class="card" *ngFor="let tile of tileList">
                         <img src="./../assets/images/placeholder.png" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h3 class="card-title">EstateID</h3>
+                            <h3 class="card-title">{{tile.tileId}}</h3>
                             <p class="card-text">Information about estate</p>
                         </div>
                     </div>
-                    <div class="card d-none d-md-block">
-                        <img src="./../assets/images/placeholder.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h3 class="card-title">EstateID</h3>
-                            <p class="card-text">Information about estate</p>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="cards-wrapper">
-                    <div class="card">
-                        <img src="./../assets/images/placeholder.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h3 class="card-title">EstateID</h3>
-                            <p class="card-text">Information about estate</p>
-                        </div>
-                    </div>
-                    <div class="card d-none d-md-block">
-                        <img src="./../assets/images/placeholder.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h3 class="card-title">EstateID</h3>
-                            <p class="card-text">Information about estate</p>
-                        </div>
-                    </div>
-                    <div class="card d-none d-md-block">
-                        <img src="./../assets/images/placeholder.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h3 class="card-title">EstateID</h3>
-                            <p class="card-text">Information about estate</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="cards-wrapper">
-                    <div class="card">
-                        <img src="./../assets/images/placeholder.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h3 class="card-title">EstateID</h3>
-                            <p class="card-text">Information about estate</p>
-                        </div>
-                    </div>
-                    <div class="card d-none d-md-block">
-                        <img src="./../assets/images/placeholder.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h3 class="card-title">EstateID</h3>
-                            <p class="card-text">Information about estate</p>
-                        </div>
-                    </div>
-                    <div class="card d-none d-md-block">
-                        <img src="./../assets/images/placeholder.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h3 class="card-title">EstateID</h3>
-                            <p class="card-text">Information about estate</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
