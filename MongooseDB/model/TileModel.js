@@ -12,17 +12,15 @@ var TileModel = /** @class */ (function () {
     }
     TileModel.prototype.createSchema = function () {
         this.schema = new Mongoose.Schema({
+            _id: String,
             tileId: String,
-            x: Number,
-            y: Number,
-            updatedAt: Number,
             type: String,
-            top: Boolean,
-            left: Boolean,
-            topLeft: Boolean,
-            estateId: Number,
+            updatedAt: Number,
+            name: String,
             owner: String,
-            tokenId: String
+            estateId: Number,
+            tokenId: String,
+            price: Number
         }, { collection: 'tiles' });
     };
     TileModel.prototype.createModel = function () {

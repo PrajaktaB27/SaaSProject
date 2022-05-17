@@ -95,30 +95,38 @@ class App {
       
       //Do a get call to metaverse
       const request = require('request');
+      let maxResults = 1000;
+      let counter = 0;
       
       let model = this.Tiles.model;       //alias to be used in the callback, scope issue
-      request('https://api.decentraland.org/v2/tiles',  (err, response, body) => {
+      request('https://api.decentraland.org/v2/tiles?include=id,type,updatedAt,name,owner,estateId,tokenId,price',  (err, response, body) => {
         if (!err && response.statusCode == 200) {
           let result = JSON.parse(body).data;
-          for(var item in result){
-            //console.log(JSON.stringify(result[item]));
-
-            //Put each item in the DB
-            model.create( [result[item]], (err) => {
+          for(var tileId in result){
+            let newEntry = JSON.parse(JSON.stringify(result[tileId])); //copy data to a new variable
+            newEntry._id = tileId; // set our db id to the decentraland id
+            newEntry.tileId = tileId; // set tileID to the decentraland id
+            
+            //Put each item in the DB0
+            model.create(newEntry, (err) => {
               if (err){
-                console.log('Tile creation failed!');
+                console.log('Possible duplicate tile! Tile creation failed!');
               }
             });
             //Only storing 1 item for now, but eventually we would want to do a real update on every single item
-            break;
+            //break;
+            counter++;
+            if (counter == maxResults) {
+              break;
+            }
           }
+          res.send('New items added');
         }
         else{
           console.log('Failed to fetch data from external server.');
+          res.send('Update failed');
         }
       })
-  
-      res.send('Update completed');
   });
 
     this.expressApp.use('/', router);

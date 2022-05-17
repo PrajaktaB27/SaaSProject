@@ -76,27 +76,37 @@ var App = /** @class */ (function () {
             }
             //Do a get call to metaverse
             var request = require('request');
+            var maxResults = 1000;
+            var counter = 0;
             var model = _this.Tiles.model; //alias to be used in the callback, scope issue
-            request('https://api.decentraland.org/v2/tiles', function (err, response, body) {
+            request('https://api.decentraland.org/v2/tiles?include=id,type,updatedAt,name,owner,estateId,tokenId,price', function (err, response, body) {
                 if (!err && response.statusCode == 200) {
                     var result = JSON.parse(body).data;
-                    for (var item in result) {
-                        //console.log(JSON.stringify(result[item]));
-                        //Put each item in the DB
-                        model.create([result[item]], function (err) {
+                    var response_1 = "Nothing done";
+                    for (var tileId in result) {
+                        var newEntry = JSON.parse(JSON.stringify(result[tileId]));
+                        newEntry._id = tileId;
+                        newEntry.tileId = tileId;
+                        //Put each item in the DB0
+                        model.create(newEntry, function (err) {
                             if (err) {
                                 console.log('Tile creation failed!');
                             }
                         });
                         //Only storing 1 item for now, but eventually we would want to do a real update on every single item
-                        break;
+                        //break;
+                        counter++;
+                        if (counter == maxResults) {
+                            break;
+                        }
                     }
+                    res.send(response_1);
                 }
                 else {
                     console.log('Failed to fetch data from external server.');
+                    res.send('Update failed');
                 }
             });
-            res.send('Update completed');
         });
         this.expressApp.use('/', router);
         this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
