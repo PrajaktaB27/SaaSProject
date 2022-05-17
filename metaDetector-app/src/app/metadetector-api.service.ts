@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpRequest } from '@angular/common/http';
 import { TweetModel } from './_models/TweetModel';
+import { TileModel } from './_models/TileModel';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,5 +13,9 @@ export class MetadetectorApiService {
 
   getTweets(){
     return this.http.get<TweetModel[]>(this.hostUrl + 'tweets');
+  }
+
+  getTileByType(typeValue: string) {
+    return this.http.get<TileModel[]>(this.hostUrl + 'tile/type/' + typeValue);
   }
 }
