@@ -48,6 +48,11 @@ var App = /** @class */ (function () {
             console.log('Query for all tiles in estate ' + id);
             _this.Tiles.retrieveAllTilesInEstate(res, { estateId: id });
         });
+        router.get('/app/tile/type/:typeValue', function (req, res) {
+            var typeValue = req.params.typeValue;
+            console.log('Query for a tile with type: ' + typeValue);
+            _this.Tiles.retrieveTilesOfSpecificType(res, { type: typeValue });
+        });
         router.get('/app/tweets', function (req, res) {
             console.log('Query for all tweets');
             _this.Tweets.retrieveAllTweets(res);
