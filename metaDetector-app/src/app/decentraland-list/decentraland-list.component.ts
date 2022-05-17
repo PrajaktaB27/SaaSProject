@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-decentraland-list',
   templateUrl: './decentraland-list.component.html',
