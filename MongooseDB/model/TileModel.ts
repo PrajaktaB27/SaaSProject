@@ -57,5 +57,14 @@ class TileModel {
             response.json(tileList);
         });
     }
+
+    public retrieveEstateIdsOfSpecificType(response:any, filter:Object) : any {
+        var query = this.model.find(filter).distinct("estateId");
+        query.exec( (err, estateIdList) => {
+            console.log(estateIdList);
+            response.json(estateIdList);
+        });
+    }
+
 }
 export {TileModel};

@@ -49,8 +49,9 @@ class App {
       if (req.url.includes('?')) {
         var xCor = parseInt(req.query.x);
         var yCor = parseInt(req.query.y);
+        var id = `${xCor},${yCor}`
         console.log(`Query single tile with coordinates: (${xCor}, ${yCor})`);
-        this.Tiles.retrieveTileById(res, {$and:[{x: xCor}, {y: yCor}]});
+        this.Tiles.retrieveTileById(res, {tileId:id});
       } else {
         res.status(400);
         res.send('Please provide tile coordinates (x, y)');
@@ -67,6 +68,12 @@ class App {
       var typeValue = req.params.typeValue;
       console.log('Query for a tile with type: ' + typeValue);
       this.Tiles.retrieveTilesOfSpecificType(res, {type: typeValue});
+    });
+    
+    router.get('/app/estates/type/:typeValue', (req, res) => {
+      var typeValue = req.params.typeValue;
+      console.log('Query for unique estates that are have type=' + typeValue);
+      this.Tiles.retrieveEstateIdsOfSpecificType(res, {type: typeValue});
     });
     
     router.get('/app/tweets', (req, res) => {

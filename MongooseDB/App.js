@@ -35,8 +35,9 @@ var App = /** @class */ (function () {
             if (req.url.includes('?')) {
                 var xCor = parseInt(req.query.x);
                 var yCor = parseInt(req.query.y);
+                var id = "".concat(xCor, ",").concat(yCor);
                 console.log("Query single tile with coordinates: (".concat(xCor, ", ").concat(yCor, ")"));
-                _this.Tiles.retrieveTileById(res, { $and: [{ x: xCor }, { y: yCor }] });
+                _this.Tiles.retrieveTileById(res, { tileId: id });
             }
             else {
                 res.status(400);
@@ -52,6 +53,11 @@ var App = /** @class */ (function () {
             var typeValue = req.params.typeValue;
             console.log('Query for a tile with type: ' + typeValue);
             _this.Tiles.retrieveTilesOfSpecificType(res, { type: typeValue });
+        });
+        router.get('/app/estates/type/:typeValue', function (req, res) {
+            var typeValue = req.params.typeValue;
+            console.log('Query for unique estates that are have type=' + typeValue);
+            _this.Tiles.retrieveEstateIdsOfSpecificType(res, { type: typeValue });
         });
         router.get('/app/tweets', function (req, res) {
             console.log('Query for all tweets');
@@ -82,15 +88,14 @@ var App = /** @class */ (function () {
             request('https://api.decentraland.org/v2/tiles?include=id,type,updatedAt,name,owner,estateId,tokenId,price', function (err, response, body) {
                 if (!err && response.statusCode == 200) {
                     var result = JSON.parse(body).data;
-                    var response_1 = "Nothing done";
                     for (var tileId in result) {
-                        var newEntry = JSON.parse(JSON.stringify(result[tileId]));
-                        newEntry._id = tileId;
-                        newEntry.tileId = tileId;
+                        var newEntry = JSON.parse(JSON.stringify(result[tileId])); //copy data to a new variable
+                        newEntry._id = tileId; // set our db id to the decentraland id
+                        newEntry.tileId = tileId; // set tileID to the decentraland id
                         //Put each item in the DB0
                         model.create(newEntry, function (err) {
                             if (err) {
-                                console.log('Tile creation failed!');
+                                console.log('Possible duplicate tile! Tile creation failed!');
                             }
                         });
                         //Only storing 1 item for now, but eventually we would want to do a real update on every single item
@@ -100,7 +105,7 @@ var App = /** @class */ (function () {
                             break;
                         }
                     }
-                    res.send(response_1);
+                    res.send('New items added');
                 }
                 else {
                     console.log('Failed to fetch data from external server.');

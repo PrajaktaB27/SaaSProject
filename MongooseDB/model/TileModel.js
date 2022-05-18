@@ -47,6 +47,13 @@ var TileModel = /** @class */ (function () {
             response.json(tileList);
         });
     };
+    TileModel.prototype.retrieveEstateIdsOfSpecificType = function (response, filter) {
+        var query = this.model.find(filter).distinct("estateId");
+        query.exec(function (err, estateIdList) {
+            console.log(estateIdList);
+            response.json(estateIdList);
+        });
+    };
     return TileModel;
 }());
 exports.TileModel = TileModel;
