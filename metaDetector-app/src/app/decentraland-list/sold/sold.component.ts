@@ -9,23 +9,33 @@ import { TileModel } from 'src/app/_models/TileModel';
 })
 export class SoldComponent implements OnInit {
 
-  listOfTileLists: Array<TileModel[]> = [];
-  static tileType: string = 'district'; // change once we get tiles with type=owned in DB
-  //static tileType: string = 'owned'
+  listOfEstateLists: Array<number[]> = [];
+  //static tileType: string = 'district'; // change once we get tiles with type=owned in DB
+  static tileType: string = 'owned'
+  tilesPerSlide: number = 5;
 
   constructor(private metaApiService: MetadetectorApiService) { }
 
   ngOnInit(): void {
-    this.metaApiService.getTileByType(SoldComponent.tileType).subscribe( (result: TileModel[]) => {
+    this.metaApiService.getEstateByType(SoldComponent.tileType).subscribe( (result: number[]) => {
       for (var i = 0; i < result.length; i++) {
-        if (i % 3 == 0) {
-          this.listOfTileLists.push([] as TileModel[]);
+        if (i % this.tilesPerSlide == 0) {
+          this.listOfEstateLists.push([] as number[]);
         }
         
-        this.listOfTileLists[this.listOfTileLists.length - 1].push(result[i]);
+        this.listOfEstateLists[this.listOfEstateLists.length - 1].push(result[i]);
       }
-      console.log(this.listOfTileLists);
+      console.log(this.listOfEstateLists);
     });
   }
+
+  getFirstTileList(): number[] {
+    return this.listOfEstateLists[0];
+  }
+
+  getEstateMap(estateId: number) {
+    return `https://api.decentraland.org/v1/estates/${estateId}/map.png`;
+  }
+
 
 }

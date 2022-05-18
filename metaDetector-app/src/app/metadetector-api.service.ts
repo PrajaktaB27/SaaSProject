@@ -18,4 +18,8 @@ export class MetadetectorApiService {
   getTileByType(typeValue: string) {
     return this.http.get<TileModel[]>(this.hostUrl + 'tile/type/' + typeValue);
   }
+
+  getEstateByType(typeValue: string) {
+    return this.http.get<number[]>(this.hostUrl + 'estates/type/' + typeValue);
+  }
 }
