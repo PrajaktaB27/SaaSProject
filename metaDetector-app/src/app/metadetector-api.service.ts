@@ -22,4 +22,8 @@ export class MetadetectorApiService {
   getEstateByType(typeValue: string) {
     return this.http.get<number[]>(this.hostUrl + 'estates/type/' + typeValue);
   }
+
+  getAllTilesInEstate(estateId: string) {
+    return this.http.get<TileModel[]>(this.hostUrl + 'tile/estate/' + estateId);
+  }
 }

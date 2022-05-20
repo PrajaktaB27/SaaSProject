@@ -1,13 +1,11 @@
 export interface TileModel {
+    _id: string,
     tileId: string,
-    x: number,
-    y: number,
-    updatedAt: number,
     type: string,
-    top: boolean,
-    left: boolean,
-    topLeft: boolean,
+    updatedAt: number,
+    name: string,
+    owner: string, 
     estateId: number,
-    owner: string,
-    tokenId: string 
+    tokenId: string, 
+    price: number
 };
