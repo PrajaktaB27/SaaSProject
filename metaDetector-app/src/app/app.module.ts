@@ -12,7 +12,6 @@ import { BuyerDdComponent } from './buyer-dd/buyer-dd.component';
 import { DecentralandListComponent } from './decentraland-list/decentraland-list.component';
 import { MetaHomeComponent } from './meta-home/meta-home.component';
 import { SellerDdComponent } from './seller-dd/seller-dd.component';
-import { ForRentComponent } from './decentraland-list/for-rent/for-rent.component';
 import { ForSaleComponent } from './decentraland-list/for-sale/for-sale.component';
 import { SoldComponent } from './decentraland-list/sold/sold.component';
 import { DueDiligenceComponent } from './meta-home/due-diligence/due-diligence.component';
@@ -31,7 +30,6 @@ import { EstateComponent } from './estate/estate.component';
     DecentralandListComponent,
     MetaHomeComponent,
     SellerDdComponent,
-    ForRentComponent,
     ForSaleComponent,
     SoldComponent,
     DueDiligenceComponent,
