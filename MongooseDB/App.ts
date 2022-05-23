@@ -9,8 +9,8 @@ class App {
 
   // ref to Express instance
   public expressApp: express.Application;
-  public Tiles:TileModel;
-  public Tweets:TweetModel;
+  public Tiles: TileModel;
+  public Tweets: TweetModel;
   private static API_KEY: number = 123;
 
   //Run configuration methods on the Express instance.
@@ -29,17 +29,15 @@ class App {
     this.expressApp.use(bodyParser.urlencoded({ extended: false }));
 
     //CORS set up to allow access from Angular
-    this.expressApp.use( (req, res, next) => {
+    this.expressApp.use((req, res, next) => {
       res.setHeader("Access-Control-Allow-Origin", "*");
       res.setHeader("Access-Control-Allow-Headers",
-                    "Origin, X-Requested-With, Content-Type, Accept");
+        "Origin, X-Requested-With, Content-Type, Accept");
       res.setHeader("Access-Control-Allow-Methods",
-                    "GET, POST, PATCH, DELETE, OPTIONS");
+        "GET, POST, PATCH, DELETE, OPTIONS");
       next();
     })
   }
-
-  
 
   // Configure API endpoints.
   private routes(): void {
@@ -51,31 +49,38 @@ class App {
         var yCor = parseInt(req.query.y);
         var id = `${xCor},${yCor}`
         console.log(`Query single tile with coordinates: (${xCor}, ${yCor})`);
-        this.Tiles.retrieveTileById(res, {tileId:id});
+        this.Tiles.retrieveTileById(res, { tileId: id });
       } else {
         res.status(400);
         res.send('Please provide tile coordinates (x, y)');
       }
     });
 
+    // get request for all tiles filtered by distinct estate ID
+    router.get('/app/uniqueTiles', async (req, res) => {
+      console.log('Query for all tiles based on distinct estate id');
+      let tilesList = await this.Tiles.retrieveAllTiles();
+      res.send(tilesList);
+    })
+
     router.get('/app/tile/estate/:id', (req, res) => {
       var id = parseInt(req.params.id);
       console.log('Query for all tiles in estate ' + id);
-      this.Tiles.retrieveAllTilesInEstate(res, {estateId: id});
+      this.Tiles.retrieveAllTilesInEstate(res, { estateId: id });
     });
 
     router.get('/app/tile/type/:typeValue', (req, res) => {
       var typeValue = req.params.typeValue;
       console.log('Query for a tile with type: ' + typeValue);
-      this.Tiles.retrieveTilesOfSpecificType(res, {type: typeValue});
+      this.Tiles.retrieveTilesOfSpecificType(res, { type: typeValue });
     });
-    
+
     router.get('/app/estates/type/:typeValue', (req, res) => {
       var typeValue = req.params.typeValue;
       console.log('Query for unique estates that are have type=' + typeValue);
-      this.Tiles.retrieveEstateIdsOfSpecificType(res, {type: typeValue});
+      this.Tiles.retrieveEstateIdsOfSpecificType(res, { type: typeValue });
     });
-    
+
     router.get('/app/tweets', (req, res) => {
       console.log('Query for all tweets');
       this.Tweets.retrieveAllTweets(res);
@@ -99,24 +104,24 @@ class App {
         res.send(message);
         return;
       }
-      
+
       //Do a get call to metaverse
       const request = require('request');
       let maxResults = 1000;
       let counter = 0;
-      
+
       let model = this.Tiles.model;       //alias to be used in the callback, scope issue
-      request('https://api.decentraland.org/v2/tiles?include=id,type,updatedAt,name,owner,estateId,tokenId,price',  (err, response, body) => {
+      request('https://api.decentraland.org/v2/tiles?include=id,type,updatedAt,name,owner,estateId,tokenId,price', (err, response, body) => {
         if (!err && response.statusCode == 200) {
           let result = JSON.parse(body).data;
-          for(var tileId in result){
+          for (var tileId in result) {
             let newEntry = JSON.parse(JSON.stringify(result[tileId])); //copy data to a new variable
             newEntry._id = tileId; // set our db id to the decentraland id
             newEntry.tileId = tileId; // set tileID to the decentraland id
-            
+
             //Put each item in the DB0
             model.create(newEntry, (err) => {
-              if (err){
+              if (err) {
                 console.log('Possible duplicate tile! Tile creation failed!');
               }
             });
@@ -129,20 +134,20 @@ class App {
           }
           res.send('New items added');
         }
-        else{
+        else {
           console.log('Failed to fetch data from external server.');
           res.send('Update failed');
         }
       })
-  });
+    });
 
     this.expressApp.use('/', router);
 
-    this.expressApp.use('/app/json/', express.static(__dirname+'/app/json'));
-    this.expressApp.use('/images', express.static(__dirname+'/img'));
-    this.expressApp.use('/', express.static(__dirname+'/pages'));
+    this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
+    this.expressApp.use('/images', express.static(__dirname + '/img'));
+    this.expressApp.use('/', express.static(__dirname + '/pages'));
   }
 
 }
 
-export {App};
+export { App };

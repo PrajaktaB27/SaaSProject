@@ -1,13 +1,13 @@
 import Mongoose = require("mongoose");
-import {DataAccess} from '../DataAccess';
-import {ITileModel} from '../interfaces/ITileModel';
+import { DataAccess } from '../DataAccess';
+import { ITileModel } from '../interfaces/ITileModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
 
 class TileModel {
-    public schema:any;
-    public model:any;
+    public schema: any;
+    public model: any;
 
     public constructor() {
         this.createSchema();
@@ -22,11 +22,11 @@ class TileModel {
                 type: String,
                 updatedAt: Number,
                 name: String,
-                owner: String, 
+                owner: String,
                 estateId: Number,
-                tokenId: String, 
+                tokenId: String,
                 price: Number
-            }, {collection: 'tiles'}
+            }, { collection: 'tiles' }
         );
     }
 
@@ -34,37 +34,45 @@ class TileModel {
         this.model = mongooseConnection.model<ITileModel>("Tile", this.schema);
     }
 
-    public retrieveTileById(response:any, filter:Object): any {
+    public retrieveTileById(response: any, filter: Object): any {
         var query = this.model.findOne(filter);
-        query.exec( (err, tile) => {
+        query.exec((err, tile) => {
             console.log(tile);
             response.json(tile);
         });
     }
 
-    public retrieveAllTilesInEstate(response:any, filter:Object): any {
+    // Pull all Tiles with a distinct Estate ID
+    public async retrieveAllTiles(): Promise<TileModel[]> {
+        //Find all tiles with a distinct estateId to avoid duplicates
+        var result = await this.model.find();
+        console.log(result);
+        return result;
+    }
+
+    public retrieveAllTilesInEstate(response: any, filter: Object): any {
         var query = this.model.find(filter);
-        query.exec( (err, tileList) => {
+        query.exec((err, tileList) => {
             console.log(tileList);
             response.json(tileList);
         });
     }
 
-    public retrieveTilesOfSpecificType(response:any, filter:Object): any {
+    public retrieveTilesOfSpecificType(response: any, filter: Object): any {
         var query = this.model.find(filter);
-        query.exec( (err, tileList) => {
+        query.exec((err, tileList) => {
             console.log(tileList);
             response.json(tileList);
         });
     }
 
-    public retrieveEstateIdsOfSpecificType(response:any, filter:Object) : any {
+    public retrieveEstateIdsOfSpecificType(response: any, filter: Object): any {
         var query = this.model.find(filter).distinct("estateId");
-        query.exec( (err, estateIdList) => {
+        query.exec((err, estateIdList) => {
             console.log(estateIdList);
             response.json(estateIdList);
         });
     }
 
 }
-export {TileModel};
+export { TileModel };
