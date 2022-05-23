@@ -8,7 +8,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,150",
                 tileId: "-150,150",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1543335084,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 estateId: 1186,
@@ -17,7 +17,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,149",
                 tileId: "-150,149",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1543335084,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 estateId: 1186,
@@ -26,7 +26,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,148",
                 tileId: "-150,148",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1543335084,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 estateId: 1186,
@@ -35,7 +35,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,147",
                 tileId: "-150,147",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1543335084,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 estateId: 1186,
@@ -44,7 +44,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,146",
                 tileId: "-150,146",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1543335084,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 estateId: 1186,
@@ -53,7 +53,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,145",
                 tileId: "-150,145",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1543335084,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 estateId: 1186,
@@ -62,7 +62,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,144",
                 tileId: "-150,144",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1543335084,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 estateId: 1186,
@@ -71,7 +71,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,143",
                 tileId: "-150,143",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1543335084,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 estateId: 1186,
@@ -80,7 +80,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,142",
                 tileId: "-150,142",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1543335084,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 estateId: 1186,
@@ -89,7 +89,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,141",
                 tileId: "-150,141",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1543335084,
                 owner: "0xa65be351527ebcf8c1707d1e444dac38b41a5faf",
                 estateId: 1186,
@@ -280,7 +280,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,10",
                 tileId: "-150,10",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1653054427,
                 name: "Fashion Corner (@favid#5317 on discord)",
                 owner: "0xf519172dc3cc531786db0db7292a51a1bcfa7d82",
@@ -291,7 +291,7 @@ tilesCollection.insertMany([
         {
                 _id: "-150,9",
                 tileId: "-150,9",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1653054427,
                 name: "Fashion Corner (@favid#5317 on discord)",
                 owner: "0xf519172dc3cc531786db0db7292a51a1bcfa7d82",
@@ -323,7 +323,7 @@ tilesCollection.insertMany([
         {
                 _id: "-149,10",
                 tileId: "-149,10",
-                type: "district",
+                type: "unowned",
                 updatedAt: 1653054427,
                 name: "Fashion Corner (@favid#5317 on discord)",
                 owner: "0xf519172dc3cc531786db0db7292a51a1bcfa7d82",
