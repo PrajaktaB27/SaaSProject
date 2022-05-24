@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <h1>For Sale</h1>
 
-    <div id="carouselForSaleControls" class="carousel slide" data-ride="carousel" >
+    <div id="carouselForSaleControls" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
             <div class="carousel-item" *ngFor="let estate of listOfEstates let i = index" [ngClass]="{'active': i === 1}">
                 <div class="cards-wrapper">
