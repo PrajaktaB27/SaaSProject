@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray } from '@angular/forms';
+import { distinct } from 'rxjs';
 import { MetadetectorApiService } from 'src/app/metadetector-api.service';
 import { TileModel } from 'src/app/_models/TileModel';
 
@@ -15,15 +17,18 @@ export class ForSaleComponent implements OnInit {
   constructor(private api: MetadetectorApiService) { }
 
   ngOnInit(): void {
-    this.api.getUniqueTiles().subscribe( (result: TileModel[]) => {
+    this.api.getUniqueTiles().subscribe((result: TileModel[]) => {
+
       console.log(result);
-      this.listOfEstates = result;
+      // Filter the list of estates to only show unowned estates
+      this.listOfEstates = result.filter(result => result.type == ForSaleComponent.tileType);
     });
   }
 
   getEstateDetails(): TileModel[] {
     return this.listOfEstates;
   }
+
 
   getEstateMap(estateId: number) {
     return `https://api.decentraland.org/v1/estates/${estateId}/map.png`;
