@@ -3,8 +3,7 @@
 
     <div id="carouselForSaleControls" class="carousel slide" data-ride="carousel" >
         <div class="carousel-inner">
-            <div class="carousel-item active">
-
+            <div class="carousel-item" *ngFor="let estate of listOfEstates let i = index" [ngClass]="{'active': i === 1}">
                 <div class="cards-wrapper">
                     <div class="card" *ngFor="let estate of getEstateDetails()">
                         <img src="{{getEstateMap(estate.estateId)}}" class="card-img-top" alt="estateImg">

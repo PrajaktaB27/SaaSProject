@@ -13,6 +13,7 @@ export class ForSaleComponent implements OnInit {
   listOfEstates: TileModel[] = [];
   static tileType: string = 'unowned'
   tilesPerSlide: number = 5;
+  activeCard: number = 0;
 
   constructor(private api: MetadetectorApiService) { }
 
@@ -28,7 +29,6 @@ export class ForSaleComponent implements OnInit {
   getEstateDetails(): TileModel[] {
     return this.listOfEstates;
   }
-
 
   getEstateMap(estateId: number) {
     return `https://api.decentraland.org/v1/estates/${estateId}/map.png`;
