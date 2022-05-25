@@ -81,7 +81,7 @@ var App = /** @class */ (function () {
             }
         });
         // get request for all tiles filtered by distinct estate ID
-        router.get('/app/uniqueTiles', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        router.get('/app/allTiles', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var tilesList;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -133,7 +133,7 @@ var App = /** @class */ (function () {
             }
             //Do a get call to metaverse
             var request = require('request');
-            var maxResults = 1000;
+            var maxResults = 10000;
             var counter = 0;
             var model = _this.Tiles.model; //alias to be used in the callback, scope issue
             request('https://api.decentraland.org/v2/tiles?include=id,type,updatedAt,name,owner,estateId,tokenId,price', function (err, response, body) {

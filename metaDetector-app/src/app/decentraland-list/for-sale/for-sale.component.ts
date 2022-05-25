@@ -20,26 +20,21 @@ export class ForSaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getAllTiles().subscribe((result: TileModel[]) => {
-
-      console.log(result);
       // Filter the list of estates to only show unowned estates
-      this.listOfEstates = result.filter(result => result.type == ForSaleComponent.tileType);
-    });
+      result = result.filter(result => result.type == ForSaleComponent.tileType);
 
-    let tempArr: TileModel[] = [];
+      // create a unique list of estates based on estateIDs
+      for (let i = 0; i < result.length; i++) {
+        let estateID: number = result[i].estateId;
 
-    // create a unique list of estates based on estateIDs
-    for (let i = 0; i < this.listOfEstates.length; i++) {
-      let estateID: number = this.listOfEstates[i].estateId;
-      this.listOfUniqueEstateIds[i] = estateID;
-
-      if (!this.listOfUniqueEstateIds.includes(estateID)) {
-        tempArr[i] = this.listOfEstates[i];
+        if (!this.listOfUniqueEstateIds.includes(estateID)) {
+          this.listOfUniqueEstateIds.push(estateID);
+          this.listOfEstates.push(result[i]);
+        } 
       }
-    }
 
-    this.listOfEstates = tempArr;
-    console.log(this.listOfEstates)
+      console.log(this.listOfEstates)
+    });
   }
 
   getEstateDetails(): TileModel[] {

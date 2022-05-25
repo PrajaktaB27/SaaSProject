@@ -108,7 +108,7 @@ class App {
 
       //Do a get call to metaverse
       const request = require('request');
-      let maxResults = 1000;
+      let maxResults = 10000;
       let counter = 0;
 
       let model = this.Tiles.model;       //alias to be used in the callback, scope issue
