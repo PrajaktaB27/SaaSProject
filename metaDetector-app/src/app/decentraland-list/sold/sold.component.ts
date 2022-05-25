@@ -10,7 +10,6 @@ import { TileModel } from 'src/app/_models/TileModel';
 export class SoldComponent implements OnInit {
 
   listOfEstateLists: Array<number[]> = [];
-  //static tileType: string = 'district'; // change once we get tiles with type=owned in DB
   static tileType: string = 'owned'
   tilesPerSlide: number = 5;
 

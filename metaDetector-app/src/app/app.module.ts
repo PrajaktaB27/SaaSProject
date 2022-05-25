@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { TestPageComponent } from './test-page/test-page.component';
 import { BuyerDdComponent } from './buyer-dd/buyer-dd.component';
 import { DecentralandListComponent } from './decentraland-list/decentraland-list.component';
 import { MetaHomeComponent } from './meta-home/meta-home.component';
@@ -25,7 +24,6 @@ import { EstateComponent } from './estate/estate.component';
 @NgModule({
   declarations: [
     AppComponent,
-    TestPageComponent,
     BuyerDdComponent,
     DecentralandListComponent,
     MetaHomeComponent,
