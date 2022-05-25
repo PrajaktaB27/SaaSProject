@@ -19,8 +19,8 @@ export class MetadetectorApiService {
     return this.http.get<TileModel[]>(this.hostUrl + 'tile/type/' + typeValue);
   }
 
-  getUniqueTiles() {
-    return this.http.get<TileModel[]>(this.hostUrl + 'uniqueTiles');
+  getAllTiles() {
+    return this.http.get<TileModel[]>(this.hostUrl + 'allTiles');
   }
 
   getEstateByType(typeValue: string) {

@@ -57,9 +57,10 @@ class App {
     });
 
     // get request for all tiles filtered by distinct estate ID
-    router.get('/app/uniqueTiles', async (req, res) => {
+    router.get('/app/allTiles', async (req, res) => {
       console.log('Query for all tiles based on distinct estate id');
       let tilesList = await this.Tiles.retrieveAllTiles();
+      
       res.send(tilesList);
     })
 

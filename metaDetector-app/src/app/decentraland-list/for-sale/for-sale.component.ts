@@ -11,6 +11,7 @@ import { TileModel } from 'src/app/_models/TileModel';
 })
 export class ForSaleComponent implements OnInit {
   listOfEstates: TileModel[] = [];
+  listOfUniqueEstateIds: number[] = [];
   static tileType: string = 'unowned'
   tilesPerSlide: number = 5;
   activeCard: number = 0;
@@ -18,12 +19,27 @@ export class ForSaleComponent implements OnInit {
   constructor(private api: MetadetectorApiService) { }
 
   ngOnInit(): void {
-    this.api.getUniqueTiles().subscribe((result: TileModel[]) => {
+    this.api.getAllTiles().subscribe((result: TileModel[]) => {
 
       console.log(result);
       // Filter the list of estates to only show unowned estates
       this.listOfEstates = result.filter(result => result.type == ForSaleComponent.tileType);
     });
+
+    let tempArr: TileModel[] = [];
+
+    // create a unique list of estates based on estateIDs
+    for (let i = 0; i < this.listOfEstates.length; i++) {
+      let estateID: number = this.listOfEstates[i].estateId;
+      this.listOfUniqueEstateIds[i] = estateID;
+
+      if (!this.listOfUniqueEstateIds.includes(estateID)) {
+        tempArr[i] = this.listOfEstates[i];
+      }
+    }
+
+    this.listOfEstates = tempArr;
+    console.log(this.listOfEstates)
   }
 
   getEstateDetails(): TileModel[] {
