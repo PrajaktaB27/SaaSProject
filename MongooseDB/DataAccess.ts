@@ -3,7 +3,8 @@ import Mongoose = require("mongoose");
 class DataAccess {
     static mongooseInstance: any;
     static mongooseConnection: Mongoose.Connection;
-    static DB_CONNECTION_STRING:string = 'mongodb://dbAdmin:test@localhost:3000/metaverseData?authSource=admin'; 
+    static DB_CONNECTION_STRING:string = 'mongodb+srv://adminUser:SaasMetaDetector2022@metadetector-cluster.ks3os.mongodb.net/metaDetector?retryWrites=true&w=majority';
+    // static DB_CONNECTION_STRING:string = 'mongodb://dbAdmin:test@localhost:3000/metaverseData?authSource=admin'; 
     
     constructor () {
         DataAccess.connect();
