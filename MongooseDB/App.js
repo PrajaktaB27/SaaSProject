@@ -41,6 +41,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var TileModel_1 = require("./model/TileModel");
 var TweetModel_1 = require("./model/TweetModel");
+var UserModel_1 = require("./model/UserModel");
 // Creates and configures an ExpressJS web server.
 var App = /** @class */ (function () {
     //Run configuration methods on the Express instance.
@@ -50,6 +51,7 @@ var App = /** @class */ (function () {
         this.routes();
         this.Tiles = new TileModel_1.TileModel();
         this.Tweets = new TweetModel_1.TweetModel();
+        this.Users = new UserModel_1.UserModel();
     }
     // Configure Express middleware.
     App.prototype.middleware = function () {
@@ -67,8 +69,16 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
-        router.get('/app/tile', function (req, res) {
-            if (req.url.includes('?')) {
+        // router.get("/app/user/:id/favoritesList", async (req, res) => {
+        //   var id = req.query.id;
+        //   console.log("Query for favorites list of user id:" + id);
+        //   let favoritesList = await this.Users.retrieveFavoriteEstates({
+        //     email: id,
+        //   });
+        //   res.send(favoritesList);
+        // });
+        router.get("/app/tile", function (req, res) {
+            if (req.url.includes("?")) {
                 var xCor = parseInt(req.query.x);
                 var yCor = parseInt(req.query.y);
                 var id = "".concat(xCor, ",").concat(yCor);
@@ -77,16 +87,16 @@ var App = /** @class */ (function () {
             }
             else {
                 res.status(400);
-                res.send('Please provide tile coordinates (x, y)');
+                res.send("Please provide tile coordinates (x, y)");
             }
         });
         // get request for all tiles filtered by distinct estate ID
-        router.get('/app/allTiles', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        router.get("/app/allTiles", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var tilesList;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log('Query for all tiles based on distinct estate id');
+                        console.log("Query for all tiles based on distinct estate id");
                         return [4 /*yield*/, this.Tiles.retrieveAllTiles()];
                     case 1:
                         tilesList = _a.sent();
@@ -95,36 +105,36 @@ var App = /** @class */ (function () {
                 }
             });
         }); });
-        router.get('/app/tile/estate/:id', function (req, res) {
+        router.get("/app/tile/estate/:id", function (req, res) {
             var id = parseInt(req.params.id);
-            console.log('Query for all tiles in estate ' + id);
+            console.log("Query for all tiles in estate " + id);
             _this.Tiles.retrieveAllTilesInEstate(res, { estateId: id });
         });
-        router.get('/app/tile/type/:typeValue', function (req, res) {
+        router.get("/app/tile/type/:typeValue", function (req, res) {
             var typeValue = req.params.typeValue;
-            console.log('Query for a tile with type: ' + typeValue);
+            console.log("Query for a tile with type: " + typeValue);
             _this.Tiles.retrieveTilesOfSpecificType(res, { type: typeValue });
         });
-        router.get('/app/estates/type/:typeValue', function (req, res) {
+        router.get("/app/estates/type/:typeValue", function (req, res) {
             var typeValue = req.params.typeValue;
-            console.log('Query for unique estates that are have type=' + typeValue);
+            console.log("Query for unique estates that are have type=" + typeValue);
             _this.Tiles.retrieveEstateIdsOfSpecificType(res, { type: typeValue });
         });
-        router.get('/app/tweets', function (req, res) {
-            console.log('Query for all tweets');
+        router.get("/app/tweets", function (req, res) {
+            console.log("Query for all tweets");
             _this.Tweets.retrieveAllTweets(res);
         });
-        router.post('/app/tiles', function (req, res, next) {
+        router.post("/app/tiles", function (req, res, next) {
             // Verify API key in header before processing the request
-            if (req.headers['api-key'] == null) {
-                var message = 'Missing required authorization header: api-key';
+            if (req.headers["api-key"] == null) {
+                var message = "Missing required authorization header: api-key";
                 console.log(message);
                 res.status(400);
                 res.send(message);
                 return;
             }
             // Verify API key is correct
-            if (parseInt(req.headers['api-key'].toString()) != App.API_KEY) {
+            if (parseInt(req.headers["api-key"].toString()) != App.API_KEY) {
                 var message = "Unauthorized request to ".concat(req.url, ", please check the api-key header.");
                 console.log(message);
                 res.status(401);
@@ -132,11 +142,11 @@ var App = /** @class */ (function () {
                 return;
             }
             //Do a get call to metaverse
-            var request = require('request');
+            var request = require("request");
             var maxResults = 10000;
             var counter = 0;
             var model = _this.Tiles.model; //alias to be used in the callback, scope issue
-            request('https://api.decentraland.org/v2/tiles?include=id,type,updatedAt,name,owner,estateId,tokenId,price', function (err, response, body) {
+            request("https://api.decentraland.org/v2/tiles?include=id,type,updatedAt,name,owner,estateId,tokenId,price", function (err, response, body) {
                 if (!err && response.statusCode == 200) {
                     var result = JSON.parse(body).data;
                     for (var tileId in result) {
@@ -146,7 +156,7 @@ var App = /** @class */ (function () {
                         //Put each item in the DB0
                         model.create(newEntry, function (err) {
                             if (err) {
-                                console.log('Possible duplicate tile! Tile creation failed!');
+                                console.log("Possible duplicate tile! Tile creation failed!");
                             }
                         });
                         //Only storing 1 item for now, but eventually we would want to do a real update on every single item
@@ -156,18 +166,18 @@ var App = /** @class */ (function () {
                             break;
                         }
                     }
-                    res.send('New items added');
+                    res.send("New items added");
                 }
                 else {
-                    console.log('Failed to fetch data from external server.');
-                    res.send('Update failed');
+                    console.log("Failed to fetch data from external server.");
+                    res.send("Update failed");
                 }
             });
         });
-        this.expressApp.use('/', router);
-        this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
-        this.expressApp.use('/images', express.static(__dirname + '/img'));
-        this.expressApp.use('/', express.static(__dirname + '/pages'));
+        this.expressApp.use("/", router);
+        this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
+        this.expressApp.use("/images", express.static(__dirname + "/img"));
+        this.expressApp.use("/", express.static(__dirname + "/pages"));
     };
     App.API_KEY = 123;
     return App;

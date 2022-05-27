@@ -3,7 +3,7 @@ exports.__esModule = true;
 exports.DataAccess = void 0;
 var Mongoose = require("mongoose");
 var DataAccess = /** @class */ (function () {
-    // static DB_CONNECTION_STRING:string = 'mongodb://dbAdmin:test@localhost:3000/metaverseData?authSource=admin'; 
+    // static DB_CONNECTION_STRING: string = "mongodb://dbAdmin:test@localhost:3000/metaverseData?authSource=admin";
     function DataAccess() {
         DataAccess.connect();
     }
@@ -17,7 +17,7 @@ var DataAccess = /** @class */ (function () {
         this.mongooseInstance = Mongoose.connect(this.DB_CONNECTION_STRING);
         return this.mongooseInstance;
     };
-    DataAccess.DB_CONNECTION_STRING = 'mongodb+srv://adminUser:SaasMetaDetector2022@metadetector-cluster.ks3os.mongodb.net/metaDetector?retryWrites=true&w=majority';
+    DataAccess.DB_CONNECTION_STRING = "mongodb+srv://adminUser:SaasMetaDetector2022@metadetector-cluster.ks3os.mongodb.net/metaDetector?retryWrites=true&w=majority";
     return DataAccess;
 }());
 exports.DataAccess = DataAccess;
