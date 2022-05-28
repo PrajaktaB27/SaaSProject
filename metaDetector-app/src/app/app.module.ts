@@ -20,6 +20,7 @@ import { TweetComponent } from './meta-home/tweet/tweet.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EstateComponent } from './estate/estate.component';
+import { EstateListComponent } from './decentraland-list/estate-list/estate-list.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { EstateComponent } from './estate/estate.component';
     MetaverseComponent,
     TweetComponent,
     NavbarComponent,
-    EstateComponent
+    EstateComponent,
+    EstateListComponent
   ],
   imports: [
     BrowserModule,
