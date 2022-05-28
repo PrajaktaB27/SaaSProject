@@ -110,11 +110,21 @@ var App = /** @class */ (function () {
             console.log("Query for all tiles in estate " + id);
             _this.Tiles.retrieveAllTilesInEstate(res, { estateId: id });
         });
-        router.get("/app/tile/type/:typeValue", function (req, res) {
-            var typeValue = req.params.typeValue;
-            console.log("Query for a tile with type: " + typeValue);
-            _this.Tiles.retrieveTilesOfSpecificType(res, { type: typeValue });
-        });
+        router.get("/app/tile/type/:typeValue", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var typeValue, tileList;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        typeValue = req.params.typeValue;
+                        console.log("Query for a tile with type: " + typeValue);
+                        return [4 /*yield*/, this.Tiles.retrieveTilesOfSpecificType({ type: typeValue })];
+                    case 1:
+                        tileList = _a.sent();
+                        res.json(tileList);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
         router.get("/app/estates/type/:typeValue", function (req, res) {
             var typeValue = req.params.typeValue;
             console.log("Query for unique estates that are have type=" + typeValue);

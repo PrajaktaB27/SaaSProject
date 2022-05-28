@@ -85,10 +85,11 @@ class App {
       this.Tiles.retrieveAllTilesInEstate(res, { estateId: id });
     });
 
-    router.get("/app/tile/type/:typeValue", (req, res) => {
+    router.get("/app/tile/type/:typeValue", async (req, res) => {
       var typeValue = req.params.typeValue;
       console.log("Query for a tile with type: " + typeValue);
-      this.Tiles.retrieveTilesOfSpecificType(res, { type: typeValue });
+      let tileList = await this.Tiles.retrieveTilesOfSpecificType({type: typeValue});
+      res.json(tileList);
     });
 
     router.get("/app/estates/type/:typeValue", (req, res) => {

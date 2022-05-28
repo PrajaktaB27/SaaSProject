@@ -91,11 +91,18 @@ var TileModel = /** @class */ (function () {
             response.json(tileList);
         });
     };
-    TileModel.prototype.retrieveTilesOfSpecificType = function (response, filter) {
-        var query = this.model.find(filter);
-        query.exec(function (err, tileList) {
-            console.log(tileList);
-            response.json(tileList);
+    TileModel.prototype.retrieveTilesOfSpecificType = function (filter) {
+        return __awaiter(this, void 0, void 0, function () {
+            var tileList;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.model.find(filter)];
+                    case 1:
+                        tileList = _a.sent();
+                        console.log(tileList);
+                        return [2 /*return*/, tileList];
+                }
+            });
         });
     };
     TileModel.prototype.retrieveEstateIdsOfSpecificType = function (response, filter) {

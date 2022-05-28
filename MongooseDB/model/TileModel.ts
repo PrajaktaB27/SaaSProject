@@ -58,12 +58,10 @@ class TileModel {
         });
     }
 
-    public retrieveTilesOfSpecificType(response: any, filter: Object): any {
-        var query = this.model.find(filter);
-        query.exec((err, tileList) => {
-            console.log(tileList);
-            response.json(tileList);
-        });
+    public async retrieveTilesOfSpecificType(filter: Object): Promise<TileModel[]> {
+        var tileList = await this.model.find(filter);
+        console.log(tileList);
+        return tileList;
     }
 
     public retrieveEstateIdsOfSpecificType(response: any, filter: Object): any {
