@@ -22,11 +22,9 @@ class UserModel {
           required: true,
           unique: true,
         },
-        // userId: String,
         email: String,
         favoritesList: [Number], // Estate IDs
-      },
-      { collection: "users" }
+      }, { collection: "users" }
     );
   }
 
@@ -34,11 +32,17 @@ class UserModel {
     this.model = mongooseConnection.model<IUserModel>("User", this.schema);
   }
 
-  // {userID: id}
-  public async retrieveFavoriteEstates(filter: Object): Promise<Number[]> {
-    var user = await this.model.findOne(filter);
-    console.log(user);
-    return user.favoritesList;
+  public async retrieveFavoriteEstates(id: string, res: any): Promise<Number[]> {
+    try {
+      var user = await this.model.findOne({ssoID: id});
+      console.log(user);
+      return user["favoritesList"];
+    } catch (error) {
+      res.status(400);
+      error.message = "Cannot find user with id: " + id;
+      return error.message;
+    }
   }
+  
 }
 export { UserModel };

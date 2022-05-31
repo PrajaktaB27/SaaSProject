@@ -53,7 +53,6 @@ var UserModel = /** @class */ (function () {
                 required: true,
                 unique: true
             },
-            // userId: String,
             email: String,
             favoritesList: [Number]
         }, { collection: "users" });
@@ -61,17 +60,24 @@ var UserModel = /** @class */ (function () {
     UserModel.prototype.createModel = function () {
         this.model = mongooseConnection.model("User", this.schema);
     };
-    // {userID: id}
-    UserModel.prototype.retrieveFavoriteEstates = function (filter) {
+    UserModel.prototype.retrieveFavoriteEstates = function (id, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var user;
+            var user, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.model.findOne(filter)];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.model.findOne({ ssoID: id })];
                     case 1:
                         user = _a.sent();
                         console.log(user);
-                        return [2 /*return*/, user.favoritesList];
+                        return [2 /*return*/, user["favoritesList"]];
+                    case 2:
+                        error_1 = _a.sent();
+                        res.status(400);
+                        error_1.message = "Cannot find user with id: " + id;
+                        return [2 /*return*/, error_1.message];
+                    case 3: return [2 /*return*/];
                 }
             });
         });

@@ -48,15 +48,12 @@ class App {
   private routes(): void {
     let router = express.Router();
 
-    // router.get("/app/user/:id/favoritesList", async (req, res) => {
-    //   var id = req.query.id;
-    //   console.log("Query for favorites list of user id:" + id);
-    //   let favoritesList = await this.Users.retrieveFavoriteEstates({
-    //     email: id,
-    //   });
-
-    //   res.send(favoritesList);
-    // });
+    router.get("/app/user/:id/favoritesList", async (req, res) => {
+      var id = req.params.id;
+      console.log("Query for favorites list of user id: " + id);
+      let favoritesList = await this.Users.retrieveFavoriteEstates(id, res);
+      res.send(favoritesList);
+    });
 
     router.get("/app/tile", (req, res) => {
       if (req.url.includes("?")) {

@@ -69,14 +69,21 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
-        // router.get("/app/user/:id/favoritesList", async (req, res) => {
-        //   var id = req.query.id;
-        //   console.log("Query for favorites list of user id:" + id);
-        //   let favoritesList = await this.Users.retrieveFavoriteEstates({
-        //     email: id,
-        //   });
-        //   res.send(favoritesList);
-        // });
+        router.get("/app/user/:id/favoritesList", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var id, favoritesList;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = req.params.id;
+                        console.log("Query for favorites list of user id: " + id);
+                        return [4 /*yield*/, this.Users.retrieveFavoriteEstates(id, res)];
+                    case 1:
+                        favoritesList = _a.sent();
+                        res.send(favoritesList);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
         router.get("/app/tile", function (req, res) {
             if (req.url.includes("?")) {
                 var xCor = parseInt(req.query.x);
