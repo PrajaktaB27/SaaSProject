@@ -1,8 +1,32 @@
 {
-  "name": "expressmongoserver",
+  "name": "meta-detector-app-db-server",
   "version": "1.0.0",
-  "description": "This directory contains two express servers: * AppServer.js - Combined Node/Express web server w/ Mongo Access * Server.js - Encapsulated Node/Express web server w/ Mongo Access",
+  "description": "MetaDetector App",
+  "contributors": [
+    {
+      "name": "Alicia Garica",
+      "email": "agarcia3@seattleu.edu"
+    },
+    { 
+      "name": "Francis Kogge",
+      "email": "fkogge@seattleu.edu"
+    },
+    { 
+      "name": "Avery Dinh",
+      "email": "dinhh2@seattleu.edu"
+    },
+    { 
+      "name": "Prajakta Bimalkhedkar",
+      "email": "pbimalkhedkar@seattleu.edu"
+    }
+  ],
+
   "main": "AppServer.js",
+  "keywords": [
+    "azure", 
+    "boilerplate",
+    "express"
+  ],
   "dependencies": {
     "@types/es6-promise": "^3.3.0",
     "@types/express": "^4.11.1",
@@ -24,6 +48,6 @@
     "start": "node AppServer.js",
     "build": "tsc"
   },
-  "author": "",
+  "author": "team 2",
   "license": "ISC"
 }

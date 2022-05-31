@@ -41,6 +41,11 @@ build/Release
 node_modules/
 jspm_packages/
 db/
+docs/
+e2e/
+dbCommands/
+createDB/
+curlCommands/
 
 # TypeScript v1 declaration files
 typings/

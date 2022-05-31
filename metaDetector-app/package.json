@@ -1,6 +1,26 @@
 {
   "name": "meta-detector-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "team2",
+  "description": "MetaDetector App",
+  "contributors": [
+    {
+      "name": "Alicia Garica",
+      "email": "agarcia3@seattleu.edu"
+    },
+    { 
+      "name": "Francis Kogge",
+      "email": "fkogge@seattleu.edu"
+    },
+    { 
+      "name": "Avery Dinh",
+      "email": "dinhh2@seattleu.edu"
+    },
+    { 
+      "name": "Prajakta Bimalkhedkar",
+      "email": "pbimalkhedkar@seattleu.edu"
+    }
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
