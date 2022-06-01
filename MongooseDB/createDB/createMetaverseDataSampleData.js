@@ -399,3 +399,28 @@ tweetsCollection.insertMany([
                 tweetDate: "2022-05-04T21:24:58.000Z"
         }
 ]);
+
+db.createCollection('marketplaces')
+marketplacesCollection = db.getCollection("marketplaces")
+marketplacesCollection.remove({})
+
+marketplacesCollection.insertMany([
+        {
+                _id: "TS1",
+                metaverse: "The Sandbox",
+                salesLastDay: 196150467.38,
+                salesLastWeek:3444451390.33
+        },
+        {
+                _id: "DL2",
+                metaverse: "Decentraland",
+                salesLastDay: 37699083.15,
+                salesLastWeek:449521042.33
+        },
+        {
+                _id: "SS3",
+                metaverse: "Somnium Space",
+                salesLastDay: 22605718.90,
+                salesLastWeek:375554107.58
+        }
+]);

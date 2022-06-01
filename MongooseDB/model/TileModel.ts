@@ -42,9 +42,9 @@ class TileModel {
         });
     }
 
-    // Pull all Tiles with a distinct Estate ID
+    // Pulls all Tiles 
     public async retrieveAllTiles(): Promise<TileModel[]> {
-        //Find all tiles with a distinct estateId to avoid duplicates
+        //Find all tiles 
         var result = await this.model.find();
         console.log(result);
         return result;

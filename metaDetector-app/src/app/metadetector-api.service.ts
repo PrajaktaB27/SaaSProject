@@ -8,6 +8,7 @@ import { TileModel } from './_models/TileModel';
 })
 export class MetadetectorApiService {
   hostUrl : string = 'http://localhost:8080/app/';
+  // hostUrl : string = '/app/';
 
   constructor(private http: HttpClient) { }
 

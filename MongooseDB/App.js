@@ -42,6 +42,7 @@ var bodyParser = require("body-parser");
 var TileModel_1 = require("./model/TileModel");
 var TweetModel_1 = require("./model/TweetModel");
 var UserModel_1 = require("./model/UserModel");
+var MarketplaceModel_1 = require("./model/MarketplaceModel");
 // Creates and configures an ExpressJS web server.
 var App = /** @class */ (function () {
     //Run configuration methods on the Express instance.
@@ -52,6 +53,7 @@ var App = /** @class */ (function () {
         this.Tiles = new TileModel_1.TileModel();
         this.Tweets = new TweetModel_1.TweetModel();
         this.Users = new UserModel_1.UserModel();
+        this.Marketplace = new MarketplaceModel_1.MarketplaceModel();
     }
     // Configure Express middleware.
     App.prototype.middleware = function () {
@@ -103,7 +105,7 @@ var App = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log("Query for all tiles based on distinct estate id");
+                        console.log("Query for all tiles");
                         return [4 /*yield*/, this.Tiles.retrieveAllTiles()];
                     case 1:
                         tilesList = _a.sent();
@@ -141,6 +143,37 @@ var App = /** @class */ (function () {
             console.log("Query for all tweets");
             _this.Tweets.retrieveAllTweets(res);
         });
+        // get request for all sales for the marketplace of metaverses
+        router.get("/app/marketplace/allSales", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var marketplaceSales;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("Query for all sales in marketplace");
+                        return [4 /*yield*/, this.Marketplace.retrieveAllSales()];
+                    case 1:
+                        marketplaceSales = _a.sent();
+                        res.send(marketplaceSales);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        // get request for sales data for a given metaverse
+        router.get("/app/marketplace/sale/:metaverse", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var metaverse, marketplaceList;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        metaverse = req.params.metaverse;
+                        console.log("Query for sales in the metaverse");
+                        return [4 /*yield*/, this.Marketplace.retrieveSaleByMetaverse(metaverse)];
+                    case 1:
+                        marketplaceList = _a.sent();
+                        res.send(marketplaceList);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
         router.post("/app/tiles", function (req, res, next) {
             // Verify API key in header before processing the request
             if (req.headers["api-key"] == null) {

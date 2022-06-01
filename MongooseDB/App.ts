@@ -4,6 +4,7 @@ import * as crypto from "crypto";
 import { TileModel } from "./model/TileModel";
 import { TweetModel } from "./model/TweetModel";
 import { UserModel } from "./model/UserModel";
+import { MarketplaceModel } from "./model/MarketplaceModel";
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -12,6 +13,7 @@ class App {
   public Tiles: TileModel;
   public Tweets: TweetModel;
   public Users: UserModel;
+  public Marketplace: MarketplaceModel;
   private static API_KEY: number = 123;
 
   //Run configuration methods on the Express instance.
@@ -22,6 +24,7 @@ class App {
     this.Tiles = new TileModel();
     this.Tweets = new TweetModel();
     this.Users = new UserModel();
+    this.Marketplace = new MarketplaceModel();
   }
 
   // Configure Express middleware.
@@ -70,7 +73,7 @@ class App {
 
     // get request for all tiles filtered by distinct estate ID
     router.get("/app/allTiles", async (req, res) => {
-      console.log("Query for all tiles based on distinct estate id");
+      console.log("Query for all tiles");
       let tilesList = await this.Tiles.retrieveAllTiles();
 
       res.send(tilesList);
@@ -85,7 +88,7 @@ class App {
     router.get("/app/tile/type/:typeValue", async (req, res) => {
       var typeValue = req.params.typeValue;
       console.log("Query for a tile with type: " + typeValue);
-      let tileList = await this.Tiles.retrieveTilesOfSpecificType({type: typeValue});
+      let tileList = await this.Tiles.retrieveTilesOfSpecificType({ type: typeValue });
       res.json(tileList);
     });
 
@@ -100,6 +103,26 @@ class App {
       this.Tweets.retrieveAllTweets(res);
     });
 
+
+    // get request for all sales for the marketplace of metaverses
+    router.get("/app/marketplace/allSales", async (req, res) => {
+      console.log("Query for all sales in marketplace");
+      let marketplaceSales = await this.Marketplace.retrieveAllSales();
+     
+      res.send(marketplaceSales);
+    });
+
+    // get request for sales data for a given metaverse
+    router.get("/app/marketplace/sale/:metaverse", async (req, res) => {
+      let metaverse = req.params.metaverse;
+      
+      console.log("Query for sales in the metaverse");
+      let marketplaceList = await this.Marketplace.retrieveSaleByMetaverse(metaverse);
+      
+      res.send(marketplaceList);
+    });
+
+    // Internal post to add new tiles from the decentraland api and update our tiles DB 
     router.post("/app/tiles", (req, res, next) => {
       // Verify API key in header before processing the request
       if (req.headers["api-key"] == null) {
