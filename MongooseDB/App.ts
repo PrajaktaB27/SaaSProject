@@ -1,11 +1,15 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
+import * as session from 'express-session';
+import * as cookieParser from 'cookie-parser';
 import * as crypto from "crypto";
 import { TileModel } from "./model/TileModel";
 import { TweetModel } from "./model/TweetModel";
 import { UserModel } from "./model/UserModel";
 import { MarketplaceModel } from "./model/MarketplaceModel";
 
+import GooglePassportObj from './GooglePassport';
+import * as passport from 'passport';
 // Creates and configures an ExpressJS web server.
 class App {
   // ref to Express instance
@@ -15,9 +19,12 @@ class App {
   public Users: UserModel;
   public Marketplace: MarketplaceModel;
   private static API_KEY: number = 123;
+  private googlePassportObj:GooglePassportObj;
 
   //Run configuration methods on the Express instance.
   constructor() {
+    this.googlePassportObj = new GooglePassportObj();
+
     this.expressApp = express();
     this.middleware();
     this.routes();
@@ -31,6 +38,10 @@ class App {
   private middleware(): void {
     this.expressApp.use(bodyParser.json());
     this.expressApp.use(bodyParser.urlencoded({ extended: false }));
+    this.expressApp.use(session({ secret: 'keyboard cat' }));
+    this.expressApp.use(cookieParser());
+    this.expressApp.use(passport.initialize());
+    this.expressApp.use(passport.session());
 
     //CORS set up to allow access from Angular
     this.expressApp.use((req, res, next) => {
@@ -50,6 +61,22 @@ class App {
   // Configure API endpoints.
   private routes(): void {
     let router = express.Router();
+
+    //SSO set up
+    router.get('/auth/google', 
+              passport.authenticate('google', {scope: ['profile']}));
+
+    //google callback route
+    router.get('/auth/google/callback', 
+      passport.authenticate('google', 
+        { failureRedirect: '/' }
+      ),
+      (req, res) => {
+        console.log("successfully authenticated user and returned to callback page.");
+        console.log("redirecting to /#/list");
+        res.redirect('http://localhost:4200');
+      } 
+    );
 
     router.get("/app/user/:id/favoritesList", async (req, res) => {
       var id = req.params.id;
