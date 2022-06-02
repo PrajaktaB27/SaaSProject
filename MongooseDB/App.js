@@ -86,7 +86,7 @@ var App = /** @class */ (function () {
         router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), function (req, res) {
             console.log("successfully authenticated user and returned to callback page.");
             console.log("redirecting to /#/list");
-            res.redirect('http://localhost:4200');
+            res.redirect('/#');
         });
         router.get("/app/user/:id/favoritesList", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, favoritesList;
@@ -245,7 +245,8 @@ var App = /** @class */ (function () {
         this.expressApp.use("/", router);
         this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
         this.expressApp.use("/images", express.static(__dirname + "/img"));
-        this.expressApp.use("/", express.static(__dirname + "/pages"));
+        this.expressApp.use("/", express.static(__dirname + "/dist/meta-detector-app"));
+        // this.expressApp.use("/", express.static(__dirname + "/pages"));
     };
     App.API_KEY = 123;
     return App;

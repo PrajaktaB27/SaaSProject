@@ -74,7 +74,7 @@ class App {
       (req, res) => {
         console.log("successfully authenticated user and returned to callback page.");
         console.log("redirecting to /#/list");
-        res.redirect('http://localhost:4200');
+        res.redirect('/#');
       } 
     );
 
@@ -211,7 +211,8 @@ class App {
 
     this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
     this.expressApp.use("/images", express.static(__dirname + "/img"));
-    this.expressApp.use("/", express.static(__dirname + "/pages"));
+    this.expressApp.use("/", express.static(__dirname + "/dist/meta-detector-app"));
+    // this.expressApp.use("/", express.static(__dirname + "/pages"));
   }
 }
 
