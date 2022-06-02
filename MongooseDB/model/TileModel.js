@@ -69,7 +69,7 @@ var TileModel = /** @class */ (function () {
             response.json(tile);
         });
     };
-    // Pull all Tiles with a distinct Estate ID
+    // Pulls all Tiles 
     TileModel.prototype.retrieveAllTiles = function () {
         return __awaiter(this, void 0, void 0, function () {
             var result;
