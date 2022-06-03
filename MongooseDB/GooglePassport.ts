@@ -9,6 +9,9 @@ class GooglePassport {
 
     clientId: string;
     secretId: string;
+    userId: string;
+    userDisplayname: string;
+    userToken: string;
      
     constructor() { 
         this.clientId = googleAppAuth.id;
@@ -28,6 +31,10 @@ class GooglePassport {
                     console.log("displayName: " + profile.displayName);
                     console.log("retrieve all of the profile info needed");
                     // this.email = profile.emails[0].value;
+
+                    this.userId = profile.id;
+                    this.userDisplayname = profile.displayName;
+                    this.userToken = accessToken;
                     return done(null, profile);
                 }); 
             }
