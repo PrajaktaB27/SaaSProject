@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MetadetectorApiService } from 'src/app/metadetector-api.service';
 import { TileModel } from 'src/app/_models/TileModel';
 import { Location } from '@angular/common'
+import { MetaverseImageService } from '../metaverse-image.service';
 
 @Component({
   selector: 'app-estate',
@@ -16,7 +17,12 @@ export class EstateComponent implements OnInit {
   tiles: Array<TileModel> = [];
   contractAddress: string = '0xf87e31492faf9a91b02ee0deaad50d51d56d5d4d';
 
-  constructor(private route: ActivatedRoute, private metaApiService: MetadetectorApiService, private location: Location) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private metaApiService: MetadetectorApiService, 
+    private imageService: MetaverseImageService, 
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
     this.estateId = this.route.snapshot.paramMap.get('estateId')!;
@@ -28,9 +34,11 @@ export class EstateComponent implements OnInit {
   }
 
   getTileMap(tileId: string) : string {
-    let coordinates: string[] = tileId.split(',', 2);
-
-    return `https://api.decentraland.org/v1/parcels/${coordinates[0]}/${coordinates[1]}/map.png`;
+    const coordinates: string[] = tileId.split(',', 2);
+    const xCor = parseInt(coordinates[0]);
+    const yCor = parseInt(coordinates[1]);
+    
+    return this.imageService.getTileMap(xCor, yCor);
   }
 
   goToMarketPlace(tokenId: string) : string {

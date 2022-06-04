@@ -39,14 +39,19 @@ exports.__esModule = true;
 exports.App = void 0;
 var express = require("express");
 var bodyParser = require("body-parser");
+var session = require("express-session");
+var cookieParser = require("cookie-parser");
 var TileModel_1 = require("./model/TileModel");
 var TweetModel_1 = require("./model/TweetModel");
 var UserModel_1 = require("./model/UserModel");
 var MarketplaceModel_1 = require("./model/MarketplaceModel");
+var GooglePassport_1 = require("./GooglePassport");
+var passport = require("passport");
 // Creates and configures an ExpressJS web server.
 var App = /** @class */ (function () {
     //Run configuration methods on the Express instance.
     function App() {
+        this.googlePassportObj = new GooglePassport_1["default"]();
         this.expressApp = express();
         this.middleware();
         this.routes();
@@ -59,6 +64,10 @@ var App = /** @class */ (function () {
     App.prototype.middleware = function () {
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
+        this.expressApp.use(session({ secret: 'keyboard cat' }));
+        this.expressApp.use(cookieParser());
+        this.expressApp.use(passport.initialize());
+        this.expressApp.use(passport.session());
         //CORS set up to allow access from Angular
         this.expressApp.use(function (req, res, next) {
             res.setHeader("Access-Control-Allow-Origin", "*");
@@ -71,6 +80,14 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
+        //SSO set up
+        router.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+        //google callback route
+        router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), function (req, res) {
+            console.log("successfully authenticated user and returned to callback page.");
+            console.log("redirecting to /#/list");
+            res.redirect('/#');
+        });
         router.get("/app/user/:id/favoritesList", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, favoritesList;
             return __generator(this, function (_a) {
@@ -174,6 +191,7 @@ var App = /** @class */ (function () {
                 }
             });
         }); });
+        // Internal post to add new tiles from the decentraland api and update our tiles DB 
         router.post("/app/tiles", function (req, res, next) {
             // Verify API key in header before processing the request
             if (req.headers["api-key"] == null) {
@@ -227,7 +245,8 @@ var App = /** @class */ (function () {
         this.expressApp.use("/", router);
         this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
         this.expressApp.use("/images", express.static(__dirname + "/img"));
-        this.expressApp.use("/", express.static(__dirname + "/pages"));
+        this.expressApp.use("/", express.static(__dirname + "/dist/meta-detector-app"));
+        // this.expressApp.use("/", express.static(__dirname + "/pages"));
     };
     App.API_KEY = 123;
     return App;

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MetadetectorApiService } from 'src/app/metadetector-api.service';
 import { TileModel } from 'src/app/_models/TileModel';
+import { MetaverseImageService } from 'src/app/metaverse-image.service';
 
 @Component({
   selector: 'app-estate-list',
@@ -15,7 +16,10 @@ export class EstateListComponent implements OnInit {
   estatesPerSlide: number = 4;
   title: string = '';
 
-  constructor(private metaApiService: MetadetectorApiService) {}
+  constructor(
+    private metaApiService: MetadetectorApiService, 
+    private imageService: MetaverseImageService
+  ) {}
 
   ngOnInit(): void {
     this.title = this.getTitle();
@@ -54,7 +58,7 @@ export class EstateListComponent implements OnInit {
   }
 
   getEstateMap(estateId: number) {
-    return `https://api.decentraland.org/v1/estates/${estateId}/map.png`;
+    return this.imageService.getEstateMap(estateId);
   }
 
   convertToFormattedDate(timestamp: number): string {
