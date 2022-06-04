@@ -22,3 +22,8 @@
     padding-left: 20px;
     padding-bottom: 20px;
 }
+
+.carousel-control-next,
+.carousel-control-prev {
+    background-color: #104b57;
+}

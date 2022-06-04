@@ -9,3 +9,8 @@
     padding-bottom: 20px;
     color: #0b343c;
 }
+
+.carousel-control-next,
+.carousel-control-prev {
+    background-color: #104b57;
+}
