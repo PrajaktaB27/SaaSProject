@@ -11,15 +11,14 @@
 
 .card{
     width: 50%;
+    border-style:solid;
+    border-color: #0b343c;
+    color: #0b343c;
+    background-color:#ffffff;
 }
 
 .twitter-heading{
-    color: #ffffff;
+    color: #0b343c;
     padding-left: 20px;
     padding-bottom: 20px;
-}
-
-.card-body{
-    box-shadow: #003554;
-   /* background-color: #1b3a4b;*/
 }
