@@ -7,8 +7,9 @@ import { TileModel } from './_models/TileModel';
   providedIn: 'root'
 })
 export class MetadetectorApiService {
-   hostUrl : string = 'https://metadetector.azurewebsites.net/app/';
-   // hostUrl : string = 'http://localhost:8080/app/';
+   //hostUrl : string = 'https://metadetector.azurewebsites.net/app/';
+  //hostUrl : string = 'http://localhost:8080/app/';
+  hostUrl: string = '/app/';
 
   constructor(private http: HttpClient) { }
 

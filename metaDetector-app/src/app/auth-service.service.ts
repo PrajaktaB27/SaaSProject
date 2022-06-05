@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   //hostUrl : string = 'https://metadetector.azurewebsites.net/app/';
-  hostUrl : string = 'http://localhost:8080/';
+  //hostUrl : string = 'http://localhost:8080/';
+  hostUrl: string = '/';
 
   constructor(private http:HttpClient) { }
 

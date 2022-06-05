@@ -7,7 +7,8 @@ import { UserModel } from './_models/UserModel';
 })
 export class UserService {
   //hostUrl : string = 'https://metadetector.azurewebsites.net/app/';
-  hostUrl : string = 'http://localhost:8080/';
+  //hostUrl : string = 'http://localhost:8080/';
+  hostUrl: string = '/';
 
   constructor(private http:HttpClient) { }
 
