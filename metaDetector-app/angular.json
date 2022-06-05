@@ -33,6 +33,7 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "../MongooseDB/dist/meta-detector-app",
               "budgets": [
                 {
                   "type": "initial",

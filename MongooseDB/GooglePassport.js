@@ -26,6 +26,9 @@ var GooglePassport = /** @class */ (function () {
                 _this.userDisplayname = profile.displayName;
                 _this.userToken = accessToken;
                 // this.email = profile.emails[0].value;
+                _this.userId = profile.id;
+                _this.userDisplayname = profile.displayName;
+                _this.userToken = accessToken;
                 return done(null, profile);
             });
         }));
