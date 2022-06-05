@@ -7,13 +7,13 @@ var GoogleStrategy = require('passport-google-oauth20-with-people-api').Strategy
 // Creates a Passport configuration for Google
 var GooglePassport = /** @class */ (function () {
     function GooglePassport() {
+        var _this = this;
         this.clientId = googleOauth2_1["default"].id;
         this.secretId = googleOauth2_1["default"].secret;
         passport.use(new GoogleStrategy({
             clientID: this.clientId,
             clientSecret: this.secretId,
             callbackURL: "/auth/google/callback"
-            //                profileFields: ['id', 'displayName', 'emails']
         }, function (accessToken, refreshToken, profile, done) {
             console.log("inside new password google strategy");
             process.nextTick(function () {
@@ -21,6 +21,10 @@ var GooglePassport = /** @class */ (function () {
                 console.log("userId:" + profile.id);
                 console.log("displayName: " + profile.displayName);
                 console.log("retrieve all of the profile info needed");
+                console.log(accessToken);
+                _this.userId = profile.id;
+                _this.userDisplayname = profile.displayName;
+                _this.userToken = accessToken;
                 // this.email = profile.emails[0].value;
                 return done(null, profile);
             });
