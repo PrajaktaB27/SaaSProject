@@ -22,7 +22,11 @@ class UserModel {
           required: true,
           unique: true,
         },
-        email: String,
+        token: { 
+          type : String, 
+          required : false
+        },
+        displayName: String,
         favoritesList: [Number], // Estate IDs
       }, { collection: "users" }
     );
@@ -42,6 +46,18 @@ class UserModel {
       error.message = "Cannot find user with id: " + id;
       return error.message;
     }
+  }
+
+  public retrieveUserById(filter: Object, res: any): void{
+    var query = this.model.findOne(filter);
+    query.exec((err, user) => {
+      if(err) {
+        console.log('experienced err' + err);
+        res.send(err);
+      }
+      console.log(`inside retrieve User By id: ${user.ssoID})`);
+      res.json(user);
+    });
   }
   
 }

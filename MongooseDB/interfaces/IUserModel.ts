@@ -7,8 +7,11 @@ interface IUserModel extends Mongoose.Document {
     required: true;
     unique: true;
   };
-
-  email: String;
+  token: { 
+    type : String, 
+    required : false
+  },
+  displayName: String;
   favoritesList: number[]; // Estate IDs
 }
 export { IUserModel };

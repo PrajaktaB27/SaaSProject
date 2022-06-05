@@ -53,7 +53,11 @@ var UserModel = /** @class */ (function () {
                 required: true,
                 unique: true
             },
-            email: String,
+            token: {
+                type: String,
+                required: false
+            },
+            displayName: String,
             favoritesList: [Number]
         }, { collection: "users" });
     };
@@ -80,6 +84,17 @@ var UserModel = /** @class */ (function () {
                     case 3: return [2 /*return*/];
                 }
             });
+        });
+    };
+    UserModel.prototype.retrieveUserById = function (filter, res) {
+        var query = this.model.findOne(filter);
+        query.exec(function (err, user) {
+            if (err) {
+                console.log('experienced err' + err);
+                res.send(err);
+            }
+            console.log("inside retrieve User By id: ".concat(user.ssoID, ")"));
+            res.json(user);
         });
     };
     return UserModel;
