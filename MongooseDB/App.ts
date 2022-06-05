@@ -58,6 +58,36 @@ class App {
     });
   }
 
+  //todo: update redirect address once Angular is deployed with Express
+  private validateAuth(req, res, next): void {
+    if (req.isAuthenticated()) {
+      console.log("user is authenticated"); return next(); 
+    }
+    //Not authenticated at this point, redirect them back to the original page
+    console.log("user not authenticated");
+    res.redirect('/#');
+  }
+
+  protected logoutUser(req, res, next): void{
+      console.log('logging user out');
+      req.logout((err) => {
+        if(err) { return next(err)};
+        res.redirect('/')
+      });
+      return next();
+  }
+
+  private async saveUser() {
+    this.Users
+          .model
+          .create({ssoID: this.googlePassportObj.userId,
+                  token: this.googlePassportObj.userToken,
+                  displayName: this.googlePassportObj.userDisplayname,
+                  favoriteList: [4573, 1352]
+                  }, 
+                  (err) => { if (err) { console.log("Possible duplicate tile! Tile creation failed!");} else console.log('tile creation succeeded')});
+  }
+
   // Configure API endpoints.
   private routes(): void {
     let router = express.Router();
@@ -69,16 +99,49 @@ class App {
     //google callback route
     router.get('/auth/google/callback', 
       passport.authenticate('google', 
-        { failureRedirect: '/' }
+        { failureRedirect: '/', failureMessage: true}
       ),
       (req, res) => {
         console.log("successfully authenticated user and returned to callback page.");
-        console.log("redirecting to /#/list");
-        res.redirect('/#');
-      } 
+        console.log("redirecting to /#");
+        console.log(this.googlePassportObj.userDisplayname);
+        this.saveUser();
+        res.redirect('/#/profile');
+      }
     );
 
-    router.get("/app/user/:id/favoritesList", async (req, res) => {
+    router.get("/auth/user/info", this.validateAuth, async (req:any, res) => {
+      console.log('type of req ' + typeof(req));
+      console.log(req.user.id);
+      console.log('sending back user profile');
+      await this.Users.retrieveUserById({ssoID: req.user.id}, res);
+    })
+
+    router.get("/auth/user/loggedIn", (req:any, res) => {
+      if(req.user){
+        console.log('user logged in');
+        res.send(true);
+      } else {
+        console.log('user not logged in');
+        res.send(false);
+      }
+    })
+
+    router.delete('/auth/user/logout', this.validateAuth, function(req:any, res, next){
+      req.logout((err) => {
+        if(err) {
+          console.log('experienced internal failure')
+          res.status(400);
+          res.send(false);
+        };
+
+        console.log('logged out. Redirecting back to home page');
+        res.send(true);
+      });
+    });
+
+    //add the authentication here
+    router.get("/app/user/:id/favoritesList", this.validateAuth, async (req, res) => {
       var id = req.params.id;
       console.log("Query for favorites list of user id: " + id);
       let favoritesList = await this.Users.retrieveFavoriteEstates(id, res);
@@ -102,7 +165,6 @@ class App {
     router.get("/app/allTiles", async (req, res) => {
       console.log("Query for all tiles");
       let tilesList = await this.Tiles.retrieveAllTiles();
-
       res.send(tilesList);
     });
 
@@ -212,7 +274,6 @@ class App {
     this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
     this.expressApp.use("/images", express.static(__dirname + "/img"));
     this.expressApp.use("/", express.static(__dirname + "/dist/meta-detector-app"));
-    // this.expressApp.use("/", express.static(__dirname + "/pages"));
   }
 }
 
