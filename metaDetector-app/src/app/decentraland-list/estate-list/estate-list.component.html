@@ -19,13 +19,20 @@
                             <h3 class="card-title">Estate ID: {{estate.estateId}}</h3>
                             <p class="card-subtitle"><b>Estate Name:</b> </p>
                             <p class="card-subtitle">{{estate.name}}</p>
-                            <p class="card-text">
-                                <b>Price:</b> ${{estate.price}}<br>
+                            <div>
+                                <div *ngIf="estate.price == null">
+                                    <p class="card-text">
+                                        <b>Price:</b> No Price Listed
+                                    </p>
+                                </div>
+                                <div *ngIf="estate.price != null">
+                                    <p class="card-text">
+                                        <b>Price:</b> ${{estate.price}}<br>
+                                    </p>
+                                </div>
                                 <b>Updated Date:</b> {{convertToFormattedDate(estate.updatedAt)}}
-                            </p>
-
+                            </div>
                         </div>
-
                         <a routerLink="estate/{{estate.estateId}}" class="btn btn-primary">View Parcels</a>
                     </div>
 

@@ -17,9 +17,9 @@ export class EstateListComponent implements OnInit {
   title: string = '';
 
   constructor(
-    private metaApiService: MetadetectorApiService, 
+    private metaApiService: MetadetectorApiService,
     private imageService: MetaverseImageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.title = this.getTitle();
@@ -41,7 +41,7 @@ export class EstateListComponent implements OnInit {
             if ((numberOfUniqueEstates - 1) % this.estatesPerSlide == 0) {
               this.listOfEstateLists.push([] as TileModel[]);
             }
-            
+
             // Add the estate to the current slide
             let currentSlideIdx = this.listOfEstateLists.length - 1;
             this.listOfEstateLists[currentSlideIdx].push(result[i]);
