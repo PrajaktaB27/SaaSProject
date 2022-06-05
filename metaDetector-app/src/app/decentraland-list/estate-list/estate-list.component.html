@@ -17,8 +17,14 @@
                         <div class="card-body">
 
                             <h3 class="card-title">Estate ID: {{estate.estateId}}</h3>
+
                             <p class="card-subtitle"><b>Estate Name:</b> </p>
-                            <p class="card-subtitle">{{estate.name}}</p>
+
+                            <div class="card-subtitle">
+                                <p *ngIf="estate.name != null; else printUnnamed">{{estate.name}}</p>
+                                <ng-template #printUnnamed>Unnamed</ng-template>
+                            </div>
+
                             <div>
                                 <div *ngIf="estate.price == null">
                                     <p class="card-text">
