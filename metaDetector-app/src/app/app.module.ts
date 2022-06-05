@@ -19,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EstateComponent } from './estate/estate.component';
 import { EstateListComponent } from './decentraland-list/estate-list/estate-list.component';
+import { MetadetectorApiService } from './metadetector-api.service';
+import { MetaverseImageService } from './metaverse-image.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,10 @@ import { EstateListComponent } from './decentraland-list/estate-list/estate-list
     BrowserAnimationsModule,
     FlexLayoutModule,
   ],
-  providers: [],
+  providers: [
+    MetadetectorApiService,
+    MetaverseImageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
