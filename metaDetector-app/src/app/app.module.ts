@@ -21,6 +21,8 @@ import { EstateComponent } from './estate/estate.component';
 import { EstateListComponent } from './decentraland-list/estate-list/estate-list.component';
 import { MetadetectorApiService } from './metadetector-api.service';
 import { MetaverseImageService } from './metaverse-image.service';
+import { LoginComponent } from './navbar/login/login.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { MetaverseImageService } from './metaverse-image.service';
     TweetComponent,
     NavbarComponent,
     EstateComponent,
-    EstateListComponent
+    EstateListComponent,
+    LoginComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
