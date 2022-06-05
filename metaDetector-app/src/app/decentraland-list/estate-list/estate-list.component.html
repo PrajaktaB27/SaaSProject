@@ -20,9 +20,15 @@
 
                             <p class="card-subtitle"><b>Estate Name:</b> </p>
 
-                            <div class="card-subtitle">
-                                <p *ngIf="estate.name != null; else printUnnamed">{{estate.name}}</p>
-                                <ng-template #printUnnamed>Unnamed</ng-template>
+                            <div>
+                                <p class="card-subtitle"*ngIf="estate.name != null; else printUnnamed">
+                                    {{estate.name}}
+                                </p>
+                                <ng-template #printUnnamed>
+                                    <p class="card-subtitle">
+                                        Unnamed
+                                    </p>
+                                </ng-template>
                             </div>
 
                             <div>
