@@ -48,6 +48,8 @@
     "url": "^0.11.0"
   },
   "scripts": {
+    "preinstall": "cd MongooseDB/",
+    "prestart": "tsc AppServer.ts",
     "start": "node AppServer.js"
   },
   "author": "team 2",
