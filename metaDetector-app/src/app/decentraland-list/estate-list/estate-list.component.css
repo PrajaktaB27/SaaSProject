@@ -2,3 +2,8 @@
 .carousel-control-prev {
     background-color: #104b57;
 }
+
+.a-link-favorite{
+    text-align: right;
+    color:#104b57
+}

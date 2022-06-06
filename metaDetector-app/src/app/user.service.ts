@@ -16,9 +16,10 @@ export class UserService {
     return this.http.get<UserModel>(this.hostUrl + 'auth/user/info');
   }
 
-  addNewFavorite(){
+  addNewFavorite(id: Number){
     //doesn't need to obtain user ID because passport on the backend already keep track of that
     //Placeholder
+    return this.http.put(this.hostUrl + 'app/user/favoritesList', {estateID: id});
   }
 
 }
