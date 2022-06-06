@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MarketplaceModel} from 'src/app/_models/MarketplaceModel';
+import { MetadetectorApiService } from 'src/app/metadetector-api.service';
 
 @Component({
   selector: 'app-meta-marketplace',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MetaMarketplaceComponent implements OnInit {
 
-  constructor() { }
+  results : Array<MarketplaceModel>= [];
+
+  constructor(private MetaService: MetadetectorApiService) { }
 
   ngOnInit(): void {
+    this.MetaService.getMarketplaceModel().subscribe( (result: MarketplaceModel[]) => {
+      this.results = result;
+      console.log('result: ' + JSON.stringify(this.results));
+    });
   }
 
 }

@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpRequest } from '@angular/common/http';
 import { TweetModel } from './_models/TweetModel';
 import { TileModel } from './_models/TileModel';
+import { MarketplaceModel } from './_models/MarketplaceModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MetadetectorApiService {
-   hostUrl : string = 'https://metadetector.azurewebsites.net/app/';
-   // hostUrl : string = 'http://localhost:8080/app/';
+      hostUrl : string = 'https://metadetector.azurewebsites.net/app/';
+    //hostUrl : string = 'http://localhost:8080/app/';
 
   constructor(private http: HttpClient) { }
 
@@ -30,5 +31,9 @@ export class MetadetectorApiService {
 
   getAllTilesInEstate(estateId: string) {
     return this.http.get<TileModel[]>(this.hostUrl + 'tile/estate/' + estateId);
+  }
+
+  getMarketplaceModel(){
+    return this.http.get<MarketplaceModel[]>(this.hostUrl + 'marketplace/allSales');
   }
 }
