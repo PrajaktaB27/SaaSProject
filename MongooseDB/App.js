@@ -105,7 +105,7 @@ var App = /** @class */ (function () {
                     .create({ ssoID: this.googlePassportObj.userId,
                     token: this.googlePassportObj.userToken,
                     displayName: this.googlePassportObj.userDisplayname,
-                    favoriteList: {}
+                    favoriteList: [4573, 1352]
                 }, function (err) { if (err) {
                     console.log("Possible duplicate tile! Tile creation failed!");
                 }
@@ -165,6 +165,22 @@ var App = /** @class */ (function () {
                 res.send(true);
             });
         });
+        //add the authentication here
+        router.put("/app/user/favoritesList", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var id, estateId;
+            return __generator(this, function (_a) {
+                try {
+                    id = req.user.id;
+                    estateId = req.body.estateID;
+                    console.log("Estate ID: " + estateId);
+                    this.Users.addToFavoriteListById({ ssoID: id }, res, estateId);
+                }
+                catch (err) {
+                    console.log('internal server failure:' + err);
+                }
+                return [2 /*return*/];
+            });
+        }); });
         //add the authentication here
         router.get("/app/user/:id/favoritesList", this.validateAuth, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, favoritesList;

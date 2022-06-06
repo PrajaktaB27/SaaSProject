@@ -141,6 +141,19 @@ class App {
     });
 
     //add the authentication here
+    router.put("/app/user/favoritesList", async (req:any, res) => {
+
+      try{
+        var id = req.user.id;
+        let estateId:Number = req.body.estateID;
+        console.log("Estate ID: " + estateId);
+        this.Users.addToFavoriteListById({ssoID: id}, res, estateId);
+      }catch(err){
+        console.log('internal server failure:' + err);
+      } 
+    });
+
+    //add the authentication here
     router.get("/app/user/:id/favoritesList", this.validateAuth, async (req, res) => {
       var id = req.params.id;
       console.log("Query for favorites list of user id: " + id);
