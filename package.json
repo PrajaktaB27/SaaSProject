@@ -4,7 +4,6 @@
   },
   "scripts": {
     "install": "cd MongooseDB/ && npm install",
-    "test": "cd Mocha/ && npm run test",
     "start": "node MongooseDB/AppServer.js",
     "build": "tsc"
   }
