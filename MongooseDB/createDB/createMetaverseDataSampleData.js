@@ -341,8 +341,8 @@ tweetsCollection.insertMany([
         {
                 authorID: "1146202351",
                 tweetID: "1521966682847252480",
-                text: "@AltcoinDailyio METAFLUENCE CITY 🔥🔥🔥\n\n$METO #METO #MATAFLUENCE #METAVERSE #METAHUT #LAND #NFT #ECOMMERCE #EVENTS #SHOPPING #INFLUENCERS #CELEBRITIES #BRANDS #AR #VR  @metafluence @keepface_global https://t.co/ShDMBp6qmZ",
-                created_at: "2022-05-04T21:35:08.000Z"
+                tweetDescription: "@AltcoinDailyio METAFLUENCE CITY 🔥🔥🔥\n\n$METO #METO #MATAFLUENCE #METAVERSE #METAHUT #LAND #NFT #ECOMMERCE #EVENTS #SHOPPING #INFLUENCERS #CELEBRITIES #BRANDS #AR #VR  @metafluence @keepface_global https://t.co/ShDMBp6qmZ",
+                tweetDate: "2022-05-04T21:35:08.000Z"
         },
         {
                 authorID: "1146202351",

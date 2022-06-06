@@ -50,9 +50,9 @@ describe('Test Tiles result', function () {
 		expect(response.body).to.satisfy(
 			function (body) {
 				for (var i = 0; i < body.length; i++) {
-					expect(body[i]).to.have.property('_id').that.is.a('string');;
-					expect(body[i]).to.have.property('tileId').that.is.a('string');;
-					expect(body[i]).to.have.property('updatedAt').that.is.a('number');;
+					expect(body[i]).to.have.property('_id').that.is.a('string');
+					expect(body[i]).to.have.property('tileId').that.is.a('string');
+					expect(body[i]).to.have.property('updatedAt').that.is.a('number');
 					expect(body[i]).to.have.property('type').that.is.a('string');
 					expect(body[i]).to.have.property('estateId', 4893).that.is.a('number');
 					expect(body[i]).to.have.property('owner').that.is.a('string');

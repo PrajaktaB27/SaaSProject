@@ -201,16 +201,6 @@ class App {
       res.send(marketplaceSales);
     });
 
-    // get request for sales data for a given metaverse
-    router.get("/app/marketplace/sale/:metaverse", async (req, res) => {
-      let metaverse = req.params.metaverse;
-      
-      console.log("Query for sales in the metaverse");
-      let marketplaceList = await this.Marketplace.retrieveSaleByMetaverse(metaverse);
-      
-      res.send(marketplaceList);
-    });
-
     // Internal post to add new tiles from the decentraland api and update our tiles DB 
     router.post("/app/tiles", (req, res, next) => {
       // Verify API key in header before processing the request
