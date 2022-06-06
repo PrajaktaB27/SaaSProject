@@ -5,13 +5,18 @@ import { DecentralandListComponent } from './decentraland-list/decentraland-list
 import { SellerDdComponent } from './seller-dd/seller-dd.component';
 import { BuyerDdComponent } from './buyer-dd/buyer-dd.component';
 import { EstateComponent } from './estate/estate.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LoginComponent } from './navbar/login/login.component';
+import { TweetResolverService } from './tweet-resolver.service';
 
 const routes: Routes = [
-  {path: '', component: MetaHomeComponent}, 
+  {path: '', component: MetaHomeComponent, resolve: {tweets : TweetResolverService} }, 
   {path: 'decentraland', component: DecentralandListComponent}, 
   {path: 'decentraland/estate/:estateId', component: EstateComponent}, 
   {path: 'sellerDD', component: SellerDdComponent}, 
-  {path: 'buyerDD', component: BuyerDdComponent}, 
+  {path: 'buyerDD', component: BuyerDdComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'profile', component: UserProfileComponent} //todo: add a guard here
 ];
 
 @NgModule({

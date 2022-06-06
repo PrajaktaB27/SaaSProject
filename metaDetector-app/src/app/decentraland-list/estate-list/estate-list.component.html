@@ -46,6 +46,7 @@
                             </div>
                         </div>
                         <a routerLink="estate/{{estate.estateId}}" class="btn btn-primary">View Parcels</a>
+                        <a (click)="markEstateAsFavorite(estate.estateId)" class="a-link-favorite" *ngIf="isLoggedIn"> Add to favorite </a>
                     </div>
 
                 </div>

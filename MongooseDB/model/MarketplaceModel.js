@@ -78,7 +78,7 @@ var MarketplaceModel = /** @class */ (function () {
             var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.model.find(Object)];
+                    case 0: return [4 /*yield*/, this.model.find(filter)];
                     case 1:
                         result = _a.sent();
                         console.log(result);

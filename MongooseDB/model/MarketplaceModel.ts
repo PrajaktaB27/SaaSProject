@@ -37,13 +37,5 @@ class MarketplaceModel {
         
         return result;
     }
-
-    // Pull
-    public async retrieveSaleByMetaverse(filter: Object): Promise<MarketplaceModel> {
-        var result = await this.model.find(Object);
-        console.log(result);
-        
-        return result;
-    }
 }
 export { MarketplaceModel };

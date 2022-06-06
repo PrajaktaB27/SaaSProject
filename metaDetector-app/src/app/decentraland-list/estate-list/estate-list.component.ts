@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MetadetectorApiService } from 'src/app/metadetector-api.service';
 import { TileModel } from 'src/app/_models/TileModel';
 import { MetaverseImageService } from 'src/app/metaverse-image.service';
+import { UserService } from 'src/app/user.service';
+import { AuthService } from 'src/app/auth-service.service';
 
 @Component({
   selector: 'app-estate-list',
@@ -15,10 +17,13 @@ export class EstateListComponent implements OnInit {
   listOfUniqueEstateIds: number[] = [];
   estatesPerSlide: number = 4;
   title: string = '';
+  isLoggedIn: boolean = false;
 
   constructor(
     private metaApiService: MetadetectorApiService,
-    private imageService: MetaverseImageService
+    private imageService: MetaverseImageService,
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +55,8 @@ export class EstateListComponent implements OnInit {
 
         console.log("Unique estates of type: " + this.tileType);
         console.log(this.listOfEstateLists);
+
+        this.checkUserLoginStatus();
       });
   }
 
@@ -59,6 +66,25 @@ export class EstateListComponent implements OnInit {
 
   getEstateMap(estateId: number) {
     return this.imageService.getEstateMap(estateId);
+  }
+
+  markEstateAsFavorite(estateID: Number){
+    this.userService.addNewFavorite(estateID).subscribe( (isAdded: any) => {
+      if(isAdded){
+        console.log('estate added to favorite list');
+      } else {
+        console.log('estate not added');
+      }
+
+    });
+  }
+
+  checkUserLoginStatus(){
+    this.authService.getLoginStatus().subscribe((isLoggedIn: any) => {
+      if(isLoggedIn){
+        this.isLoggedIn = true;
+      }
+    });
   }
 
   convertToFormattedDate(timestamp: number): string {

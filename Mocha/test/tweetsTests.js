@@ -13,7 +13,7 @@ describe('Test Tiles result', function () {
 	//	this.timeout(15000);
 
 	let hostURL = "https://metadetector.azurewebsites.net";
-	let path = "/app/tile/estate/4893";
+	let path = "/app/tweets";
 	var requestResult;
 	var response;
 
@@ -33,16 +33,17 @@ describe('Test Tiles result', function () {
 		expect(response).to.have.status(200);
 		//Expect the response body to be json
 		expect(response).to.be.json;
-		expect(response.body).to.have.length.above(2);
+		expect(response.body).to.have.length.above(1);
 		expect(response).to.have.headers;
 		expect(response.body).to.be.an('array');
 	});
 
 	it('The first entry in the array has known properties', function () {
-		expect(requestResult[0]).to.include.all.keys('tileId', 'type', 'updatedAt');
+		expect(requestResult[0]).to.have.property('authorID')
+		expect(requestResult[0]).to.have.property('tweetID')
+		expect(requestResult[0]).to.have.property('tweetDescription')
+		expect(requestResult[0]).to.have.property('tweetDate');
 		expect(requestResult[0]).to.have.property('_id');
-		expect(requestResult[0]).to.have.property('estateId', 4893);
-		expect(response.body[0]).to.have.deep.property('tokenId');
 		expect(response.body).to.not.be.a.string;
 	});
 
@@ -51,12 +52,9 @@ describe('Test Tiles result', function () {
 			function (body) {
 				for (var i = 0; i < body.length; i++) {
 					expect(body[i]).to.have.property('_id').that.is.a('string');
-					expect(body[i]).to.have.property('tileId').that.is.a('string');
-					expect(body[i]).to.have.property('updatedAt').that.is.a('number');
-					expect(body[i]).to.have.property('type').that.is.a('string');
-					expect(body[i]).to.have.property('estateId', 4893).that.is.a('number');
-					expect(body[i]).to.have.property('owner').that.is.a('string');
-					expect(body[i]).to.have.property('tokenId').that.is.a('string');
+					expect(body[i]).to.have.property('authorID').that.is.a('string');
+					expect(body[i]).to.have.property('tweetID').that.is.a('string');
+					expect(body[i]).to.have.property('tweetDescription').that.is.a('string');
 				}
 				return true;
 			});

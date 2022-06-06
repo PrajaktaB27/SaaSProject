@@ -76,6 +76,45 @@ var App = /** @class */ (function () {
             next();
         });
     };
+    //todo: update redirect address once Angular is deployed with Express
+    App.prototype.validateAuth = function (req, res, next) {
+        if (req.isAuthenticated()) {
+            console.log("user is authenticated");
+            return next();
+        }
+        //Not authenticated at this point, redirect them back to the original page
+        console.log("user not authenticated");
+        res.redirect('/#');
+    };
+    App.prototype.logoutUser = function (req, res, next) {
+        console.log('logging user out');
+        req.logout(function (err) {
+            if (err) {
+                return next(err);
+            }
+            ;
+            res.redirect('/');
+        });
+        return next();
+    };
+    App.prototype.saveUser = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                this.Users
+                    .model
+                    .create({ ssoID: this.googlePassportObj.userId,
+                    token: this.googlePassportObj.userToken,
+                    displayName: this.googlePassportObj.userDisplayname,
+                    favoriteList: [4573, 1352]
+                }, function (err) { if (err) {
+                    console.log("Possible duplicate tile! Tile creation failed!");
+                }
+                else
+                    console.log('tile creation succeeded'); });
+                return [2 /*return*/];
+            });
+        });
+    };
     // Configure API endpoints.
     App.prototype.routes = function () {
         var _this = this;
@@ -83,12 +122,67 @@ var App = /** @class */ (function () {
         //SSO set up
         router.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
         //google callback route
-        router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), function (req, res) {
+        router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/', failureMessage: true }), function (req, res) {
             console.log("successfully authenticated user and returned to callback page.");
-            console.log("redirecting to /#/list");
-            res.redirect('/#');
+            console.log("redirecting to /#");
+            console.log(_this.googlePassportObj.userDisplayname);
+            _this.saveUser();
+            res.redirect('/#/profile');
         });
-        router.get("/app/user/:id/favoritesList", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        router.get("/auth/user/info", this.validateAuth, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('type of req ' + typeof (req));
+                        console.log(req.user.id);
+                        console.log('sending back user profile');
+                        return [4 /*yield*/, this.Users.retrieveUserById({ ssoID: req.user.id }, res)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        router.get("/auth/user/loggedIn", function (req, res) {
+            if (req.user) {
+                console.log('user logged in');
+                res.send(true);
+            }
+            else {
+                console.log('user not logged in');
+                res.send(false);
+            }
+        });
+        router["delete"]('/auth/user/logout', this.validateAuth, function (req, res, next) {
+            req.logout(function (err) {
+                if (err) {
+                    console.log('experienced internal failure');
+                    res.status(400);
+                    res.send(false);
+                }
+                ;
+                console.log('logged out. Redirecting back to home page');
+                res.send(true);
+            });
+        });
+        //add the authentication here
+        router.put("/app/user/favoritesList", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var id, estateId;
+            return __generator(this, function (_a) {
+                try {
+                    id = req.user.id;
+                    estateId = req.body.estateID;
+                    console.log("Estate ID: " + estateId);
+                    this.Users.addToFavoriteListById({ ssoID: id }, res, estateId);
+                }
+                catch (err) {
+                    console.log('internal server failure:' + err);
+                }
+                return [2 /*return*/];
+            });
+        }); });
+        //add the authentication here
+        router.get("/app/user/:id/favoritesList", this.validateAuth, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, favoritesList;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -246,7 +340,6 @@ var App = /** @class */ (function () {
         this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
         this.expressApp.use("/images", express.static(__dirname + "/img"));
         this.expressApp.use("/", express.static(__dirname + "/dist/meta-detector-app"));
-        // this.expressApp.use("/", express.static(__dirname + "/pages"));
     };
     App.API_KEY = 123;
     return App;
