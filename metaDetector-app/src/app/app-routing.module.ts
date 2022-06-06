@@ -7,9 +7,10 @@ import { BuyerDdComponent } from './buyer-dd/buyer-dd.component';
 import { EstateComponent } from './estate/estate.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './navbar/login/login.component';
+import { TweetResolverService } from './tweet-resolver.service';
 
 const routes: Routes = [
-  {path: '', component: MetaHomeComponent}, 
+  {path: '', component: MetaHomeComponent, resolve: {tweets : TweetResolverService} }, 
   {path: 'decentraland', component: DecentralandListComponent}, 
   {path: 'decentraland/estate/:estateId', component: EstateComponent}, 
   {path: 'sellerDD', component: SellerDdComponent}, 

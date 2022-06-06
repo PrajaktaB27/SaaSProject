@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TweetModel } from 'src/app/_models/TweetModel';
 import { MetadetectorApiService } from 'src/app/metadetector-api.service';
+import { TweetResolverService } from 'src/app/tweet-resolver.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tweet',
@@ -24,11 +26,14 @@ export class TweetComponent implements OnInit {
     return this.results[i];
   }
 
-  constructor(private MetaService: MetadetectorApiService) { }
+  constructor(
+    private MetaService: MetadetectorApiService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    this.MetaService.getTweets().subscribe( (result: TweetModel[]) => {
-      this.results = result;
+    this.activatedRoute.data.subscribe( ({tweets}) => {
+      this.results = tweets;
       console.log('result: ' + JSON.stringify(this.results));
     });
   }
