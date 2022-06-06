@@ -83,7 +83,7 @@ class App {
           .create({ssoID: this.googlePassportObj.userId,
                   token: this.googlePassportObj.userToken,
                   displayName: this.googlePassportObj.userDisplayname,
-                  favoriteList: [4573, 1352]
+                  favoriteList: []
                   }, 
                   (err) => { if (err) { console.log("Possible duplicate tile! Tile creation failed!");} else console.log('tile creation succeeded')});
   }
