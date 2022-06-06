@@ -97,6 +97,21 @@ var UserModel = /** @class */ (function () {
             res.json(user);
         });
     };
+    UserModel.prototype.addToFavoriteListById = function (filter, res, estateID) {
+        var query = this.model.findOne(filter);
+        query.exec(function (err, user) {
+            if (err) {
+                console.log('experienced err' + err);
+                res.send(err);
+            }
+            console.log("inside addtoFavorite: ".concat(user.ssoID, ")"));
+            console.log("original list: ".concat(user.favoritesList));
+            user.favoritesList.push(estateID);
+            console.log("updated list: ".concat(user.favoritesList));
+            user.save();
+            res.json(user);
+        });
+    };
     return UserModel;
 }());
 exports.UserModel = UserModel;
