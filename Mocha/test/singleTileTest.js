@@ -9,7 +9,7 @@ var should = chai.should();
 var http = require('http');
 chai.use(chaiHttp);
 
-describe('Test 1 Tile result', function () {
+describe('Test Tile by coordinate', function () {
 	//	this.timeout(15000);
 
 	let hostURL = "https://metadetector.azurewebsites.net";

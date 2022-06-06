@@ -1,15 +1,12 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var async = require('async');
 
-var assert = chai.assert;
 var expect = chai.expect;
-var should = chai.should();
 
 var http = require('http');
 chai.use(chaiHttp);
 
-describe('Test Tiles result', function () {
+describe('Test Marketplace all sales', function () {
 	//	this.timeout(15000);
 
 	let hostURL = "https://metadetector.azurewebsites.net";
