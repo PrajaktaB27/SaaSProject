@@ -27,6 +27,7 @@
     "express"
   ],
   "dependencies": {
+    "mongoose": "^6.3.1",
     "@types/es6-promise": "^3.3.0",
     "@types/express": "^4.11.1",
     "@types/node": "^17.0.25",
